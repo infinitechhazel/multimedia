@@ -360,6 +360,8 @@ export default function BookingPage() {
 
   const direction = step > prevStep ? "forward" : "backward"
 
+  const apertureBlades = 8
+
   useEffect(() => {
     fetchBookedDates()
   }, [])
@@ -369,18 +371,18 @@ export default function BookingPage() {
   }, [step])
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-black via-black to-slate-900 overflow-hidden">
+    <div className="relative min-h-screen bg-black overflow-hidden">
       <FloatingParticles />
 
       {/* Hero Section */}
       <motion.section
-        className="py-24 md:py-32 px-6 relative z-10 min-h-[50vh] flex items-center"
+        className="py-24 md:py-32 px-6 relative z-10 min-h-[50vh] flex items-center bg-gradient-to-br from-black via-black to-amber-950"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8 w-full">
-          <motion.p className="text-xs md:text-sm uppercase tracking-widest text-amber-500 font-semibold capitalize" variants={itemVariants}>
+          <motion.p className="text-xs md:text-sm uppercase tracking-widest text-amber-500 font-semibold" variants={itemVariants}>
             Book Your Session
           </motion.p>
 
@@ -395,7 +397,96 @@ export default function BookingPage() {
       </motion.section>
 
       <section ref={ref} className="py-10 px-6">
+        <div className="absolute  bg-gradient-to-br from-black via-[#0a0a0a] to-[#1a1408]" />
         <motion.section variants={containerVariants} initial="hidden" animate="visible">
+          {/* Aperture rings - left */}
+          <div className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-50">
+            <motion.svg
+              viewBox="0 0 200 200"
+              className="w-full h-full"
+              initial={{ rotate: 0, opacity: 0 }}
+              whileInView={{ rotate: 15, opacity: 1 }}
+              transition={{ duration: 2, ease: "easeOut" }}
+            >
+              {[...Array(apertureBlades)].map((_, i) => (
+                <motion.path
+                  key={i}
+                  d={`M100,100 L${100 + 80 * Math.cos((i * 2 * Math.PI) / apertureBlades)},${
+                    100 + 80 * Math.sin((i * 2 * Math.PI) / apertureBlades)
+                  } A80,80 0 0,1 ${100 + 80 * Math.cos(((i + 1) * 2 * Math.PI) / apertureBlades)},${
+                    100 + 80 * Math.sin(((i + 1) * 2 * Math.PI) / apertureBlades)
+                  } Z`}
+                  fill="none"
+                  stroke="hsl(43 96% 56%)"
+                  strokeWidth="0.5"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  transition={{ duration: 1.5, delay: i * 0.1 }}
+                />
+              ))}
+              <circle cx="100" cy="100" r="40" fill="none" stroke="hsl(43 96% 56%)" strokeWidth="0.5" />
+              <circle cx="100" cy="100" r="60" fill="none" stroke="hsl(43 96% 56%)" strokeWidth="0.3" />
+              <circle cx="100" cy="100" r="78" fill="none" stroke="hsl(43 96% 56%)" strokeWidth="0.3" />
+            </motion.svg>
+          </div>
+
+          {/* Aperture rings - right */}
+          <div className="absolute right-[-5%] bottom-[10%] w-[300px] h-[300px] opacity-50">
+            <motion.svg
+              viewBox="0 0 200 200"
+              className="w-full h-full"
+              initial={{ rotate: 0, opacity: 0 }}
+              whileInView={{ rotate: -10, opacity: 1 }}
+              transition={{ duration: 2.5, ease: "easeOut" }}
+            >
+              {[...Array(6)].map((_, i) => (
+                <circle key={i} cx="100" cy="100" r={30 + i * 12} fill="none" stroke="hsl(43 96% 56%)" strokeWidth="0.5" />
+              ))}
+            </motion.svg>
+          </div>
+
+          {/* Flare top-right */}
+          <motion.div
+            className="absolute top-[20%] right-[20%] w-32 h-32 pointer-events-none z-20"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            <div
+              className="absolute inset-0 rounded-full blur-xl"
+              style={{
+                background: "radial-gradient(circle, rgba(212,165,116,0.2), rgba(212,165,116,0.05), transparent)",
+              }}
+            />
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
+              style={{ backgroundColor: "rgba(212,165,116,0.6)" }}
+            />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-16 bg-gradient-to-b from-transparent via-amber-400/40 to-transparent" />
+          </motion.div>
+
+          {/* Flare bottom-left */}
+          <motion.div
+            className="absolute bottom-[15%] left-[15%] w-24 h-24 pointer-events-none z-20"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          >
+            <div
+              className="absolute inset-0 rounded-full blur-xl"
+              style={{
+                background: "radial-gradient(circle, rgba(212,165,116,0.25), rgba(212,165,116,0.1), transparent)",
+              }}
+            />
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
+              style={{ backgroundColor: "rgba(212,165,116,0.6)" }}
+            />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-12 bg-gradient-to-b from-transparent via-amber-400/40 to-transparent" />
+          </motion.div>
+
           <div className="max-w-2xl mx-auto">
             <div className="mb-12 mx-auto">
               <div className="flex items-center justify-between mb-8 mx-auto">
@@ -810,9 +901,7 @@ export default function BookingPage() {
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-amber-500/20 rounded-lg bg-card text-white 
-               focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent 
-               transition resize-none h-32"
+                        className="w-full px-4 py-3 border border-amber-500/20 rounded-lg bg-card text-white focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition resize-none h-32"
                         placeholder="Tell us more about your vision..."
                         whileFocus={{ scale: 1.02, boxShadow: "0 0 12px rgba(245, 158, 11, 0.4)" }}
                         transition={{ duration: 0.2 }}
@@ -937,7 +1026,7 @@ export default function BookingPage() {
           <PhotographySuccessAnimation isVisible={submitted} />
         </motion.section>
 
-        <section>
+        <section className="z-50 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

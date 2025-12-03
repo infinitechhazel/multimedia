@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Quote, ChevronLeft, ChevronRight, Star, Camera } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import FloatingParticles from "../animated-golden-particles"
 
 const testimonials = [
   {
@@ -97,28 +98,7 @@ export function TestimonialsSection() {
   return (
     <section className="py-20 md:py-28 bg-black overflow-hidden relative">
       {/* Animated gold particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-[#d4a574] rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -40, 0],
-              opacity: [0, 0.8, 0],
-              scale: [0, 1.5, 0],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 4,
-            }}
-          />
-        ))}
-      </div>
+      <FloatingParticles count={20} />
 
       {/* Floating camera lens effect */}
       <motion.div
@@ -184,8 +164,8 @@ export function TestimonialsSection() {
         </motion.div>
 
         {/* Main testimonial display */}
-        <div className="max-w-5xl mx-auto">
-          <div className="relative min-h-[520px] md:min-h-[460px]">
+        <div className="sm:max-w-3xl md:max-w-4xl mx-auto px-4">
+          <div className="relative w-full overflow-hidden">
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={currentIndex}
@@ -195,23 +175,23 @@ export function TestimonialsSection() {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="absolute inset-0"
+                className="w-full"
               >
-                <div className="bg-gradient-to-br from-neutral-900 to-black rounded-2xl shadow-2xl shadow-[#d4a574]/20 p-8 md:p-12 border-2 border-[#d4a574]/30 h-full min-h-[500px] flex flex-col justify-center relative">
-                  {/* Animated background pattern */}
+                <div
+                  className="relative overflow-hiddenbg-gradient-to-br from-neutral-900 to-blackrounded-2xl shadow-2xl shadow-[#d4a574]/20 border-2 border-[#d4a574]/30 p-6 sm:p-8 md:p-12 flex flex-col items-center justify-center min-h-[420px] sm:min-h-[460px] md:min-h-[500px]"
+                >
+                  {/* Animated background */}
                   <motion.div
-                    className="absolute inset-0 opacity-5"
+                    className="absolute inset-0 opacity-5 pointer-events-none"
                     style={{
-                      backgroundImage: `radial-gradient(circle at 2px 2px, #d4a574 1px, transparent 0)`,
+                      backgroundImage: "radial-gradient(circle at 2px 2px, #d4a574 1px, transparent 0)",
                       backgroundSize: "40px 40px",
                     }}
-                    animate={{
-                      backgroundPosition: ["0px 0px", "40px 40px"],
-                    }}
+                    animate={{ backgroundPosition: ["0px 0px", "40px 40px"] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   />
 
-                  {/* Quote icon with animation */}
+                  {/* Quote Icon */}
                   <motion.div
                     className="flex justify-center my-6"
                     initial={{ scale: 0, rotate: -180 }}
@@ -219,16 +199,16 @@ export function TestimonialsSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
                     <motion.div
-                      className="w-16 h-16 rounded-full bg-gradient-to-br from-[#d4a574] to-[#c9944a] flex items-center justify-center shadow-lg shadow-[#d4a574]/50"
+                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#d4a574] to-[#c9944a] flex items-center justify-center shadow-lg shadow-[#d4a574]/50"
                       whileHover={{ scale: 1.1, rotate: 180 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <Quote className="w-7 h-7 text-black" />
+                      <Quote className="w-6 h-6 sm:w-7 sm:h-7 text-black" />
                     </motion.div>
                   </motion.div>
 
-                  {/* Rating stars with stagger animation */}
-                  <div className="flex justify-center gap-1.5 mb-8">
+                  {/* Rating stars */}
+                  <div className="flex justify-center gap-1.5 mb-6 sm:mb-8">
                     {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
                       <motion.div
                         key={i}
@@ -236,14 +216,14 @@ export function TestimonialsSection() {
                         animate={{ opacity: 1, scale: 1, rotate: 0 }}
                         transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
                       >
-                        <Star className="w-6 h-6 fill-[#d4a574] text-[#d4a574]" />
+                        <Star className="w-5 h-5 sm:w-6 sm:h-6 fill-[#d4a574] text-[#d4a574]" />
                       </motion.div>
                     ))}
                   </div>
 
-                  {/* Testimonial content with fade-in animation */}
+                  {/* Testimonial Content */}
                   <motion.blockquote
-                    className="text-xl md:text-2xl text-gray-200 leading-relaxed text-center mb-10 max-w-3xl mx-auto font-light relative z-10"
+                    className="text-lg sm:text-xl md:text-2xl text-gray-200 leading-relaxed text-center mb-8 sm:mb-10 max-w-3xl mx-auto font-light relative z-10 px-2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
@@ -251,31 +231,25 @@ export function TestimonialsSection() {
                     &ldquo;{testimonials[currentIndex].content}&rdquo;
                   </motion.blockquote>
 
-                  {/* Client info with slide-up animation */}
+                  {/* Client Info */}
                   <motion.div
-                    className="flex flex-col items-center gap-6"
+                    className="flex flex-col items-center gap-5 sm:gap-6"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6 }}
                   >
                     <div className="relative">
                       <motion.div
-                        className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#d4a574]/40 shadow-xl shadow-[#d4a574]/20 bg-neutral-800"
+                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-[#d4a574]/40 shadow-xl shadow-[#d4a574]/20 bg-neutral-800"
                         whileHover={{ scale: 1.1, borderColor: "rgba(212, 165, 116, 0.8)" }}
                         transition={{ duration: 0.3 }}
                       >
-                        {/* <Image
-                          src={testimonials[currentIndex].image || "/placeholder.svg"}
-                          alt={testimonials[currentIndex].name}
-                          width={96}
-                          height={96}
-                          className="object-cover w-full h-full"
-                        /> */}
+                        {/* Image placeholder */}
                       </motion.div>
 
-                      {/* Category badge with pulse */}
+                      {/* Badge */}
                       <motion.span
-                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-xs font-semibold bg-gradient-to-r from-[#d4a574] to-[#c9944a] text-black px-3 py-1 rounded-full whitespace-nowrap shadow-lg"
+                        className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-xs font-semibold bg-gradient-to-r from-[#d4a574] to-[#c9944a] text-black px-3 py-1 rounded-full shadow-lg whitespace-nowrap"
                         animate={{
                           boxShadow: ["0 0 10px rgba(212, 165, 116, 0.3)", "0 0 20px rgba(212, 165, 116, 0.6)", "0 0 10px rgba(212, 165, 116, 0.3)"],
                         }}
@@ -285,25 +259,25 @@ export function TestimonialsSection() {
                       </motion.span>
                     </div>
 
-                    <div className="text-center mb-4">
-                      <p className="font-serif text-2xl text-white mb-1">{testimonials[currentIndex].name}</p>
-                      <p className="text-gray-400 text-sm">{testimonials[currentIndex].role}</p>
+                    <div className="text-center mb-2 sm:mb-4">
+                      <p className="font-serif text-xl sm:text-2xl text-white mb-1">{testimonials[currentIndex].name}</p>
+                      <p className="text-gray-400 text-xs sm:text-sm">{testimonials[currentIndex].role}</p>
                     </div>
                   </motion.div>
 
-                  {/* Corner decorations - viewfinder style */}
-                  <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-[#d4a574]/50" />
-                  <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-[#d4a574]/50" />
-                  <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-[#d4a574]/50" />
-                  <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-[#d4a574]/50" />
+                  {/* Corner Decorations */}
+                  <div className="absolute top-3 left-3 w-6 h-6 sm:w-8 sm:h-8 border-l-2 border-t-2 border-[#d4a574]/50" />
+                  <div className="absolute top-3 right-3 w-6 h-6 sm:w-8 sm:h-8 border-r-2 border-t-2 border-[#d4a574]/50" />
+                  <div className="absolute bottom-3 left-3 w-6 h-6 sm:w-8 sm:h-8 border-l-2 border-b-2 border-[#d4a574]/50" />
+                  <div className="absolute bottom-3 right-3 w-6 h-6 sm:w-8 sm:h-8 border-r-2 border-b-2 border-[#d4a574]/50" />
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Navigation with enhanced animations */}
+          {/* Navigation */}
           <motion.div
-            className="flex justify-center items-center gap-6 mt-20"
+            className="flex justify-center items-center gap-4 sm:gap-6 mt-12 sm:mt-20"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -314,14 +288,13 @@ export function TestimonialsSection() {
                 variant="outline"
                 size="icon"
                 onClick={prev}
-                className="rounded-full w-12 h-12 border-2 border-[#d4a574]/40 hover:bg-[#d4a574]/20 hover:border-[#d4a574] bg-black/50 backdrop-blur-sm shadow-lg transition-all duration-300"
+                className="rounded-full w-10 h-10 sm:w-12 sm:h-12 border-2 border-[#d4a574]/40 hover:bg-[#d4a574]/20 hover:border-[#d4a574] bg-black/50 backdrop-blur-sm shadow-lg transition-all duration-300"
               >
-                <ChevronLeft className="h-6 w-6 text-[#d4a574]" />
+                <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-[#d4a574]" />
               </Button>
             </motion.div>
 
-            {/* Dot indicators with animations */}
-            <div className="flex gap-2 items-center px-4">
+            <div className="flex gap-2 items-center px-2 sm:px-4">
               {testimonials.map((_, index) => (
                 <motion.button
                   key={index}
@@ -330,11 +303,12 @@ export function TestimonialsSection() {
                     setCurrentIndex(index)
                   }}
                   className={`transition-all duration-300 rounded-full ${
-                    index === currentIndex ? "w-10 h-3 bg-gradient-to-r from-[#d4a574] to-[#c9944a]" : "w-3 h-3 bg-[#d4a574]/30 hover:bg-[#d4a574]/60"
+                    index === currentIndex
+                      ? "w-8 sm:w-10 h-2.5 sm:h-3 bg-gradient-to-r from-[#d4a574] to-[#c9944a]"
+                      : "w-2.5 sm:w-3 h-2.5 sm:h-3 bg-[#d4a574]/30 hover:bg-[#d4a574]/60"
                   }`}
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
-                  aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
             </div>
@@ -344,9 +318,9 @@ export function TestimonialsSection() {
                 variant="outline"
                 size="icon"
                 onClick={next}
-                className="rounded-full w-12 h-12 border-2 border-[#d4a574]/40 hover:bg-[#d4a574]/20 hover:border-[#d4a574] bg-black/50 backdrop-blur-sm shadow-lg transition-all duration-300"
+                className="rounded-full w-10 h-10 sm:w-12 sm:h-12 border-2 border-[#d4a574]/40 hover:bg-[#d4a574]/20 hover:border-[#d4a574] bg-black/50 backdrop-blur-sm shadow-lg transition-all duration-300"
               >
-                <ChevronRight className="h-6 w-6 text-[#d4a574]" />
+                <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-[#d4a574]" />
               </Button>
             </motion.div>
           </motion.div>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { Camera, Aperture, Focus } from "lucide-react"
+import FloatingParticles from "../animated-golden-particles"
 
 const categories = [
   { name: "Weddings", path: "/portfolio", image: "/photo/elegant-wedding-couple.png", icon: Camera },
@@ -22,9 +23,9 @@ const staggerContainer = {
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
-  visible: { 
-    opacity: 1, 
-    y: 0
+  visible: {
+    opacity: 1,
+    y: 0,
   },
 }
 
@@ -35,32 +36,13 @@ export function CategoriesSection() {
     <section className="py-16 relative overflow-hidden">
       {/* Black to gold gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-[#1a1410] to-[#2a1f15]" />
-      
+
       {/* Radial gold glow accents */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#d4a574]/10 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#d4a574]/10 rounded-full blur-3xl" />
-      
+
       {/* Animated gold particles */}
-      {[...Array(15)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-[#d4a574] rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -40, 0],
-            opacity: [0, 0.8, 0],
-            scale: [0, 1.2, 0],
-          }}
-          transition={{
-            duration: 4 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 4,
-          }}
-        />
-      ))}
+      <FloatingParticles count={15} />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -70,22 +52,16 @@ export function CategoriesSection() {
           variants={staggerContainer}
           className="text-center mb-12"
         >
-          <motion.div
-            variants={fadeInUp}
-            transition={smoothTransition}
-            className="flex items-center justify-center gap-3 mb-6"
-          >
-            <motion.div 
+          <motion.div variants={fadeInUp} transition={smoothTransition} className="flex items-center justify-center gap-3 mb-6">
+            <motion.div
               className="h-px w-12 bg-gradient-to-r from-transparent to-[#d4a574]"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.5 }}
             />
-            <p className="text-[#d4a574] font-black tracking-[0.3em] text-sm">
-              OUR SERVICES
-            </p>
-            <motion.div 
+            <p className="text-[#d4a574] font-black tracking-[0.3em] text-sm">OUR SERVICES</p>
+            <motion.div
               className="h-px w-12 bg-gradient-to-l from-transparent to-[#d4a574]"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -93,7 +69,7 @@ export function CategoriesSection() {
               transition={{ duration: 1, delay: 0.5 }}
             />
           </motion.div>
-          
+
           <motion.h2
             variants={fadeInUp}
             transition={smoothTransition}
@@ -101,12 +77,8 @@ export function CategoriesSection() {
           >
             What We <span className="bg-gradient-to-r from-[#d4a574] via-[#e0b584] to-[#d4a574] bg-clip-text text-transparent">Capture</span>
           </motion.h2>
-          
-          <motion.p
-            variants={fadeInUp}
-            transition={smoothTransition}
-            className="text-gray-400 text-lg max-w-2xl mx-auto"
-          >
+
+          <motion.p variants={fadeInUp} transition={smoothTransition} className="text-gray-400 text-lg max-w-2xl mx-auto">
             Every frame tells a story. Explore our specialized photography services crafted with precision and passion.
           </motion.p>
         </motion.div>
@@ -118,10 +90,10 @@ export function CategoriesSection() {
               initial={{ opacity: 0, y: 60, rotateX: 45 }}
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.8, 
+              transition={{
+                duration: 0.8,
                 delay: index * 0.15,
-                ease: [0.25, 0.46, 0.45, 0.94]
+                ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
               <Link href={category.path}>
@@ -136,14 +108,12 @@ export function CategoriesSection() {
                         sizes="w-full h-full"
                         className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-75"
                       />
-                      
+
                       {/* Dark overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />
-                      
+
                       {/* Gold overlay on hover */}
-                      <motion.div 
-                        className="absolute inset-0 bg-gradient-to-t from-[#d4a574]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      />
+                      <motion.div className="absolute inset-0 bg-gradient-to-t from-[#d4a574]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
 
                     {/* Animated gold corner brackets - camera viewfinder style */}
@@ -157,7 +127,7 @@ export function CategoriesSection() {
                       >
                         <div className="absolute top-0 left-0 w-2 h-2 bg-[#d4a574] rounded-full" />
                       </motion.div>
-                      
+
                       {/* Top-right corner */}
                       <motion.div
                         className="absolute top-6 right-6 w-8 h-8 border-r-3 border-t-3 border-[#d4a574]"
@@ -167,7 +137,7 @@ export function CategoriesSection() {
                       >
                         <div className="absolute top-0 right-0 w-2 h-2 bg-[#d4a574] rounded-full" />
                       </motion.div>
-                      
+
                       {/* Bottom-left corner */}
                       <motion.div
                         className="absolute bottom-6 left-6 w-8 h-8 border-l-3 border-b-3 border-[#d4a574]"
@@ -177,7 +147,7 @@ export function CategoriesSection() {
                       >
                         <div className="absolute bottom-0 left-0 w-2 h-2 bg-[#d4a574] rounded-full" />
                       </motion.div>
-                      
+
                       {/* Bottom-right corner */}
                       <motion.div
                         className="absolute bottom-6 right-6 w-8 h-8 border-r-3 border-b-3 border-[#d4a574]"
@@ -197,14 +167,14 @@ export function CategoriesSection() {
                       >
                         <motion.div
                           className="w-16 h-16 border-2 border-[#d4a574] rounded-full"
-                          animate={{ 
+                          animate={{
                             scale: [1, 1.2, 1],
-                            opacity: [0.5, 1, 0.5]
+                            opacity: [0.5, 1, 0.5],
                           }}
-                          transition={{ 
+                          transition={{
                             duration: 2,
                             repeat: Infinity,
-                            ease: "easeInOut"
+                            ease: "easeInOut",
                           }}
                         />
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#d4a574] rounded-full shadow-lg shadow-[#d4a574]/50" />
@@ -241,24 +211,19 @@ export function CategoriesSection() {
                       <h3 className="text-3xl font-serif font-light text-white mb-3 group-hover:text-[#d4a574] transition-colors duration-300">
                         {category.name}
                       </h3>
-                      
+
                       {/* Animated gold line */}
-                      <motion.div 
+                      <motion.div
                         className="h-1 bg-gradient-to-r from-[#d4a574] to-transparent"
                         initial={{ width: 0 }}
                         whileInView={{ width: "100%" }}
                         transition={{ duration: 0.8, delay: 0.3 }}
                       />
-                      
+
                       {/* Explore text */}
-                      <motion.p
-                        className="text-[#d4a574] text-sm font-bold mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2"
-                      >
+                      <motion.p className="text-[#d4a574] text-sm font-bold mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
                         EXPLORE
-                        <motion.span
-                          animate={{ x: [0, 5, 0] }}
-                          transition={{ duration: 1, repeat: Infinity }}
-                        >
+                        <motion.span animate={{ x: [0, 5, 0] }} transition={{ duration: 1, repeat: Infinity }}>
                           →
                         </motion.span>
                       </motion.p>
@@ -271,10 +236,7 @@ export function CategoriesSection() {
                       whileInView={{ y: 0 }}
                       transition={{ duration: 0.3, delay: 0.4 }}
                     >
-                      <motion.span
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
+                      <motion.span animate={{ opacity: [1, 0.5, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>
                         ● REC
                       </motion.span>
                     </motion.div>

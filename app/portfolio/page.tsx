@@ -7,6 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState, useMemo } from "react"
 import { Camera, Aperture, Focus, ZoomIn, Sparkles, Film } from "lucide-react"
+import FloatingParticles from "@/components/animated-golden-particles"
 
 type Category = "all" | "weddings" | "portraits" | "events" | "products"
 
@@ -137,26 +138,7 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Animated gold particles background */}
-      {[...Array(40)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-amber-400 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -60, 0],
-            opacity: [0, 1, 0],
-            scale: [0, 1.5, 0],
-          }}
-          transition={{
-            duration: 6 + Math.random() * 3,
-            repeat: Infinity,
-            delay: Math.random() * 6,
-          }}
-        />
-      ))}
+      <FloatingParticles count={40} />
 
       {/* Hero Section with Film Strip Effect */}
       <section className="pt-32 pb-16 px-6 relative overflow-hidden">

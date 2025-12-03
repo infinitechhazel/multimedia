@@ -51,7 +51,10 @@ export function FilmStripGallery({ direction = "left", speed = 25 }: FilmStripGa
         </div>
 
         {/* Image Grid with Zoom Effect */}
-        <motion.div className="grid grid-cols-5 gap-1 px-8 max-w-[1800px] mx-auto" style={{ scale, opacity: imageOpacity }}>
+        <motion.div
+          className="grid grid-cols-3 lg:grid-cols-5 gap-1 px-8 max-w-[1800px] mx-auto"
+          style={{ scale, opacity: imageOpacity }}
+        >
           {galleryImages.map((image, index) => (
             <div key={index} className="relative aspect-square overflow-hidden rounded-sm border border-[#d4a574]/30">
               <Image src={image.src || "/placeholder.svg"} alt={image.alt} fill sizes="w-full h-full" className="object-cover" />

@@ -8,13 +8,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-gold">STUDIO</h3>
+            <h3 className="text-2xl font-bold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">STUDIO</h3>
             <p className="text-sm opacity-80">Capturing life's precious moments with artistic excellence and professional dedication.</p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gold">Quick Links</h4>
+            <h4 className="text-lg font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">Quick Links</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-sm hover:text-gold transition-smooth">
@@ -46,22 +46,22 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gold">Contact</h4>
+            <h4 className="text-lg font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm">
-                <Phone className="h-4 w-4 text-gold mt-0.5" />
+                <Phone className="h-4 w-4 bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent mt-0.5" />
                 <a href="tel:+1 (555) 123-4567" className="text-sm hover:text-gold transition-smooth">
                   +1 (555) 123-4567
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm">
-                <Mail className="h-4 w-4 text-gold mt-0.5" />
+                <Mail className="h-4 w-4 bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent mt-0.5" />
                 <a href="mailto:info@studiophoto.com" className="text-sm hover:text-gold transition-smooth ">
                   info@studiophoto.com
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm">
-                <MapPin className="h-4 w-4 text-gold mt-0.5" />
+                <MapPin className="h-4 w-4 bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent mt-0.5" />
                 <span>
                   123 Photography Lane
                   <br />
@@ -70,7 +70,7 @@ const Footer = () => {
               </li>
             </ul>
             <div className="pt-2 space-y-1">
-              <h4 className="text-sm font-semibold text-gold">Operating Hours</h4>
+              <h4 className="text-sm font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">Operating Hours</h4>
               <p className="text-sm">Mon - Fri: 9AM - 6PM</p>
               <p className="text-sm">Sat - Sun: By Appointment</p>
             </div>
@@ -78,7 +78,7 @@ const Footer = () => {
 
           {/* Social & Policies */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gold">Follow Us</h4>
+            <h4 className="text-lg font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">Follow Us</h4>
             <div className="flex gap-4">
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-smooth">
                 <Instagram className="h-5 w-5" />
@@ -91,7 +91,7 @@ const Footer = () => {
               </a>
             </div>
             <div className="pt-4 space-y-2">
-              <h4 className="text-sm font-semibold text-gold">Policies</h4>
+              <h4 className="text-sm font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">Policies</h4>
               <ul className="space-y-1">
                 <li>
                   <Link href="/privacy" className="text-sm hover:text-gold transition-smooth">

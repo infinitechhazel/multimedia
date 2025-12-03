@@ -7,6 +7,7 @@ import Image from "next/image"
 import { useState, useRef } from "react"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import Link from "next/link"
+import FloatingParticles from "@/components/animated-golden-particles"
 
 type Category = "all" | "wedding" | "portrait" | "event" | "product" | "studio"
 
@@ -159,25 +160,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen pt-20 bg-gradient-to-br from-[#1a0f0a] via-[#2d1810] to-[#4a2818] relative overflow-hidden">
       {/* Animated Gold Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-[#d4a574]/30 rounded-full"
-            initial={{ x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 1000), y: -20 }}
-            animate={{
-              y: (typeof window !== "undefined" ? window.innerHeight : 1000) + 20,
-              x: Math.random() * (typeof window !== "undefined" ? window.innerWidth : 1000),
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-            }}
-          />
-        ))}
-      </div>
+      <FloatingParticles count={20} />
 
       {/* Hero Section */}
       <motion.section className="pt-20 pb-20 px-6 relative overflow-hidden" initial="hidden" animate="visible" variants={staggerContainer}>
@@ -217,26 +200,7 @@ export default function Blog() {
 
         <div className="max-w-4xl mx-auto text-center space-y-6 relative z-30">
           {/* Animated gold particles */}
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-amber-400 rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0, 1, 0],
-                scale: [0, 1, 0],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 2,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: Math.random() * 3,
-              }}
-            />
-          ))}
+          <FloatingParticles count={20} />
 
           <motion.p
             className="text-sm uppercase tracking-widest bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent font-semibold"
@@ -295,7 +259,13 @@ export default function Blog() {
             <div className="grid md:grid-cols-2 gap-0">
               <div className="relative h-64 md:h-auto overflow-hidden">
                 <motion.div className="w-full h-full" style={{ scale: featuredScale, opacity: featuredOpacity }}>
-                  <Image src={featuredPost.image || "/placeholder.svg"} alt={featuredPost.title} fill sizes="w-full h-full" className="object-cover" />
+                  <Image
+                    src={featuredPost.image || "/placeholder.svg"}
+                    alt={featuredPost.title}
+                    fill
+                    sizes="w-full h-full"
+                    className="object-cover"
+                  />
                 </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-amber-900/20 to-transparent" />
 
@@ -409,26 +379,8 @@ export default function Blog() {
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
         />
         {/* Animated Gold Orbs */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-amber-400 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: Math.random() * 3,
-            }}
-          />
-        ))}
+        <FloatingParticles count={20} />
+
         <motion.div
           className="absolute bottom-0 -right-20 w-96 h-96 bg-[#c9944a]/20 rounded-full blur-3xl"
           animate={{
@@ -498,7 +450,7 @@ export default function Blog() {
 
       {/* Post Dialog */}
       <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
-        <DialogContent className="max-w-2xl h-[90vh] bg-gradient-to-br from-[#2d1810] to-[#1a0f0a] border-[#d4a574]/50 overflow-y-auto scrollbar-hide">
+        <DialogContent className="max-w-4xl h-[90vh] bg-gradient-to-br from-[#2d1810] to-[#1a0f0a] border-[#d4a574]/50 overflow-y-auto scrollbar-hide">
           {post && (
             <>
               <DialogHeader>

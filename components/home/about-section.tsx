@@ -7,6 +7,7 @@ import { ChevronRight, Sparkles, Award, Camera } from "lucide-react"
 import { useRef } from "react"
 import { CountingNumber } from "../ui/shadcn-io/counting-number"
 import { useIsMobile, useIsTablet } from "@/hooks/use-device"
+import FloatingParticles from "../animated-golden-particles"
 
 const stats = [
   { value: 500, suffix: "+", label: "Projects Completed" },
@@ -135,36 +136,7 @@ export default function AboutSection() {
       />
 
       {/* Animated orange particles with parallax depth */}
-      {[...Array(50)].map((_, i) => {
-        const depth = Math.random()
-        const size = 1 + depth * 3
-
-        return (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${size}px`,
-              height: `${size}px`,
-              backgroundColor: depth > 0.7 ? "#ff9500" : depth > 0.4 ? "#ff8c00" : "#cc7000",
-              boxShadow: `0 0 ${size * 3}px ${depth > 0.5 ? "#ff9500" : "#cc7000"}`,
-            }}
-            animate={{
-              y: [0, -30 - depth * 50, 0],
-              opacity: [0, 0.6 + depth * 0.4, 0],
-              scale: [0, 1 + depth * 0.5, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 4,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeInOut",
-            }}
-          />
-        )
-      })}
+      <FloatingParticles count={50} />
 
       {/* Film perforations - bright orange */}
       <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-black/95 to-transparent z-20">
@@ -365,7 +337,7 @@ export default function AboutSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.8 }}
-                  className="absolute -right-6 top-1/4 text-black p-6 font-mono text-sm font-bold space-y-2 shadow-xl border-2 border-black"
+                  className="absolute top-1/4 -right-2 sm:-right-6 sm:top-1/3 md:-right-10 md:top-1/4 lg:-right-16 lg:top-1/4text-black p-3 sm:p-4 md:p-6 font-mono text-xs sm:text-sm md:text-base font-bold space-y-2 shadow-xl border-2 border-black rounded-lg"
                   style={{
                     background: "linear-gradient(135deg, #ff9500, #ff8c00)",
                     boxShadow: "0 10px 40px rgba(255, 149, 0, 0.5)",
@@ -378,16 +350,16 @@ export default function AboutSection() {
                 >
                   <div className="flex items-center gap-2">
                     <Camera className="w-4 h-4" />
-                    <span>PRO</span>
+                    <span>PRO</span>{" "}
+                    <motion.div
+                      className="w-2 h-2 bg-black rounded-full"
+                      animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
                   </div>
                   <div className="text-black/90">f/1.4</div>
                   <div className="text-black/90">1/250s</div>
                   <div className="text-black/90">ISO 100</div>
-                  <motion.div
-                    className="w-2 h-2 bg-black rounded-full"
-                    animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  />
                 </motion.div>
 
                 {/* Award badge */}
@@ -396,7 +368,7 @@ export default function AboutSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 1, type: "spring", stiffness: 150 }}
-                  className="absolute -left-6 bottom-1/4 w-20 h-20 rounded-full flex items-center justify-center shadow-2xl border-4 border-black"
+                  className=" absolute -left-6 bottom-0.5 lg:bottom-1/4 w-15 h-15 lg:w-20 lg:h-20 rounded-full flex items-center justify-center shadow-2xl border-4 border-black"
                   style={{
                     background: "linear-gradient(135deg, #ff9500, #ff8c00)",
                     boxShadow: "0 10px 40px rgba(255, 149, 0, 0.6)",

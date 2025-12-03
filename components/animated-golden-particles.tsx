@@ -11,11 +11,15 @@ type Particle = {
   delay: number
 }
 
-export default function FloatingParticles() {
+interface FloatingParticlesProps {
+  count?: number
+}
+
+export default function FloatingParticles({ count = 40 }) {
   const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
-    const generated = [...Array(40)].map(() => ({
+    const generated = Array.from({ length: count }, () => ({
       size: 1 + Math.random() * 4,
       left: Math.random() * 100,
       top: Math.random() * 100,
@@ -24,7 +28,7 @@ export default function FloatingParticles() {
       delay: Math.random() * 5,
     }))
     setParticles(generated)
-  }, [])
+  }, [count])
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">

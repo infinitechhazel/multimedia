@@ -79,7 +79,7 @@ export function Navigation() {
     >
       <FloatingParticles />
 
-      <div ref={menuRef} className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5 relative">
+      <div ref={menuRef} className="max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-5 relative">
         <div className="flex items-center justify-between">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
             <Link href="/" className="flex items-center gap-2 shrink-0 group">

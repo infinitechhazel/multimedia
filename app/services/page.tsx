@@ -4,6 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { Camera, Users, PartyPopper, Package, Building2, User, Clock, MapPin, Sparkles, Check, Aperture, Film, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import FloatingParticles from "@/components/animated-golden-particles"
 
 const photographyServices = [
   {
@@ -99,26 +100,7 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Animated gold particles background */}
-      {[...Array(50)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-amber-400 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -70, 0],
-            opacity: [0, 1, 0],
-            scale: [0, 1.5, 0],
-          }}
-          transition={{
-            duration: 7 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 7,
-          }}
-        />
-      ))}
+      <FloatingParticles count={50} />
 
       {/* Hero Section with Aperture Effect */}
       <section className="pt-32 pb-20 px-6 relative overflow-hidden">
@@ -185,7 +167,7 @@ export default function ServicesPage() {
             className="text-center mb-10 sm:mb-14 md:mb-20"
           >
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6"
+              className="flex flex-row items-center justify-center gap-3 mb-6"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}

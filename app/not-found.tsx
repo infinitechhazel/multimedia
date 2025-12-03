@@ -13,7 +13,7 @@ const NotFound = () => {
   }, [location])
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black">
+    <div className="flex min-h-screen items-center justify-center bg-black px-6">
       {/* Rotating aperture decorations */}
       <motion.div
         className="absolute -right-32 -top-32 w-96 h-96 border-[40px] border-amber-500/20 rounded-full"
