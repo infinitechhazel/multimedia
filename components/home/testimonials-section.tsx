@@ -8,7 +8,7 @@ import FloatingParticles from "../animated-golden-particles"
 
 const testimonials = [
   {
-    name: "Sarah & Michael",
+    name: "Sarah Michael",
     role: "Wedding Clients",
     content:
       "Luminous Studio captured our wedding day with absolute perfection. Every emotion, every tear of joy - they caught it all. The professionalism and artistic vision were outstanding.",
@@ -177,9 +177,7 @@ export function TestimonialsSection() {
                 transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full"
               >
-                <div
-                  className="relative overflow-hiddenbg-gradient-to-br from-neutral-900 to-blackrounded-2xl shadow-2xl shadow-[#d4a574]/20 border-2 border-[#d4a574]/30 p-6 sm:p-8 md:p-12 flex flex-col items-center justify-center min-h-[420px] sm:min-h-[460px] md:min-h-[500px]"
-                >
+                <div className="relative overflow-hiddenbg-gradient-to-br from-neutral-900 to-blackrounded-2xl shadow-2xl shadow-[#d4a574]/20 border-2 border-[#d4a574]/30 p-6 sm:p-8 md:p-12 flex flex-col items-center justify-center min-h-[420px] sm:min-h-[460px] md:min-h-[500px]">
                   {/* Animated background */}
                   <motion.div
                     className="absolute inset-0 opacity-5 pointer-events-none"
@@ -244,7 +242,13 @@ export function TestimonialsSection() {
                         whileHover={{ scale: 1.1, borderColor: "rgba(212, 165, 116, 0.8)" }}
                         transition={{ duration: 0.3 }}
                       >
-                        {/* Image placeholder */}
+                        <Image
+                          src={testimonials[currentIndex].image}
+                          alt={`${testimonials[currentIndex].name} profile`}
+                          width={96}
+                          height={96}
+                          className="w-full h-full object-cover"
+                        />
                       </motion.div>
 
                       {/* Badge */}
