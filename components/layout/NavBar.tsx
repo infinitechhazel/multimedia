@@ -9,7 +9,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useLockBodyScroll } from "@/hooks/use-scroll"
-import FloatingParticles from "./animated-golden-particles"
+import FloatingParticles from "../animated-golden-particles"
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)

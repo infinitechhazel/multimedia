@@ -4,9 +4,9 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/sonner"
 import FloatingSocialIcons from "@/components/floating-social-media"
-import { Navigation } from "@/components/NavBar"
-import Footer from "@/components/Footer"
+import Footer from "@/components/layout/Footer"
 import { CameraCursorProvider } from "@/components/camera-cursor-provider"
+import { Navigation } from "@/components/layout/NavBar"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

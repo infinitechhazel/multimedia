@@ -4,10 +4,11 @@ import { Award, Camera, Heart, Palette, Users, Zap, Sparkles, Target, Aperture }
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { CountingNumber } from "@/components/ui/shadcn-io/counting-number"
 import FloatingParticles from "@/components/animated-golden-particles"
 import { Button } from "@/components/ui/button"
+import { TeamMember, TeamMemberDialog } from "@/components/about/modal/team-member-modal"
 
 const values = [
   {
@@ -39,6 +40,12 @@ const teamMembers = [
     specialty: "Weddings & Portraits",
     image: "/professional-woman-photographer.png",
     bio: "Visionary leader documenting life's meaningful moments for over a decade.",
+    socials: {
+      facebook: "https://www.facebook.com/alexandra.sterling.photography",
+      instagram: "https://www.instagram.com/alexandra.sterling",
+      linkedin: "https://www.linkedin.com/in/alexandra-sterling",
+      website: "https://www.alexandrasterling.com",
+    },
   },
   {
     name: "Marcus Davidson",
@@ -46,6 +53,12 @@ const teamMembers = [
     specialty: "Events & Commercial",
     image: "/professional-photographer.png",
     bio: "Unmatched energy and attention to detail in every project.",
+     socials: {
+      facebook: "https://www.facebook.com/alexandra.sterling.photography",
+      instagram: "https://www.instagram.com/alexandra.sterling",
+      linkedin: "https://www.linkedin.com/in/alexandra-sterling",
+      website: "https://www.alexandrasterling.com",
+    },
   },
   {
     name: "Elena Vasquez",
@@ -53,6 +66,12 @@ const teamMembers = [
     specialty: "Studio Portraits & Fashion",
     image: "/professional-latina-woman-photographer-portrait.jpg",
     bio: "High-end portrait and fashion, merging precision with creative expression.",
+     socials: {
+      facebook: "https://www.facebook.com/alexandra.sterling.photography",
+      instagram: "https://www.instagram.com/alexandra.sterling",
+      linkedin: "https://www.linkedin.com/in/alexandra-sterling",
+      website: "https://www.alexandrasterling.com",
+    },
   },
   {
     name: "James Liu",
@@ -60,6 +79,12 @@ const teamMembers = [
     specialty: "Product & E-commerce",
     image: "/professional-asian-man-photographer-portrait.jpg",
     bio: "Refined, technical mindset that elevates brands.",
+     socials: {
+      facebook: "https://www.facebook.com/alexandra.sterling.photography",
+      instagram: "https://www.instagram.com/alexandra.sterling",
+      linkedin: "https://www.linkedin.com/in/alexandra-sterling",
+      website: "https://www.alexandrasterling.com",
+    },
   },
 ]
 
@@ -82,6 +107,8 @@ const scaleIn = {
 }
 
 export default function About() {
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null)
+
   const heroRef = useRef(null)
   const storyRef = useRef(null)
 
@@ -162,20 +189,30 @@ export default function About() {
         </div>
       </motion.section>
 
-      {/* Story Section */}
-      <motion.section ref={storyRef} className="py-12 px-4 relative overflow-hidden" initial="hidden" animate="visible" variants={staggerContainer}>
+      {/* Story & Values Section */}
+      <motion.section
+        ref={storyRef}
+        className="relative px-4 py-10 overflow-hidden"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={staggerContainer}
+      >
         <motion.div
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-25"
           style={{
-            y: storyY,
-            background: "radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.4), transparent 60%)",
+            background:
+              "radial-gradient(circle at 20% 40%, rgba(255,215,0,.35), transparent 55%), radial-gradient(circle at 80% 60%, rgba(255,165,0,.25), transparent 55%)",
           }}
+          animate={{ scale: [1, 1.15, 1] }}
+          transition={{ duration: 10, repeat: Infinity }}
         />
 
-        <div className="container mx-auto max-w-4xl relative z-10">
-          <motion.div className="text-center mb-8" variants={fadeInUp} transition={{ duration: 0.5 }}>
-            <motion.h2
-              className="text-3xl md:text-4xl font-bold mb-3"
+        <div className="relative z-10 max-w-5xl mx-auto space-y-12">
+          {/* STORY */}
+          <motion.div className="text-center max-w-3xl mx-auto" variants={fadeInUp}>
+            <h2
+              className="text-3xl md:text-4xl font-bold mb-2"
               style={{
                 background: "linear-gradient(135deg, #FFD700, #FFA500)",
                 WebkitBackgroundClip: "text",
@@ -183,284 +220,155 @@ export default function About() {
               }}
             >
               Our Story
-            </motion.h2>
-            <motion.div
-              className="h-0.5 w-20 mx-auto"
-              style={{ background: "linear-gradient(to right, #FFD700, #FFA500)" }}
-              variants={scaleIn}
-              transition={{ duration: 0.8 }}
-            />
-          </motion.div>
-
-          <motion.div className="space-y-4 text-base leading-relaxed text-gray-300" variants={staggerContainer}>
-            <motion.p variants={fadeInUp} transition={{ duration: 0.5 }}>
-              Founded with passion for capturing life's precious moments, our studio has grown into a premier destination for professional
-              photography. Over a decade of experience documenting countless weddings, portraits, and special events.
-            </motion.p>
-            <motion.p variants={fadeInUp} transition={{ duration: 0.5 }}>
-              Our journey began with a simple belief: every moment deserves to be preserved beautifully. This philosophy drives everything we do, from
-              initial consultation to final delivery.
-            </motion.p>
-            <motion.p variants={fadeInUp} transition={{ duration: 0.5 }}>
-              We blend technical expertise with artistic vision. We don't just take photos—we create visual stories you'll treasure for generations.
-            </motion.p>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Values Section */}
-      <section className="py-12 px-4 relative">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            className="text-center mb-10"
-            initial="hidden"
-            animate="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={staggerContainer}
-          >
-            <motion.h2
-              className="text-3xl md:text-4xl font-bold mb-3"
-              style={{
-                background: "linear-gradient(135deg, #FFD700, #FFA500)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-              variants={fadeInUp}
-            >
-              Our Values
-            </motion.h2>
-            <motion.div
-              className="h-0.5 w-20 mx-auto mb-4"
-              style={{ background: "linear-gradient(to right, #FFD700, #FFA500)" }}
-              variants={scaleIn}
-            />
-            <motion.p className="text-sm text-gray-400" variants={fadeInUp}>
-              Principles guiding our work and client relationships
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-            initial="hidden"
-            animate="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={staggerContainer}
-          >
-            {values.map((value, index) => (
-              <motion.div key={index} variants={fadeInUp} transition={{ duration: 0.5 }} whileHover={{ y: -10, scale: 1.03 }}>
-                <Card
-                  className="p-6 text-center h-full transition-all duration-300 border-2 relative overflow-hidden group"
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.6)",
-                    borderColor: "rgba(255, 215, 0, 0.3)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "#FFD700"
-                    e.currentTarget.style.backgroundColor = "rgba(255, 215, 0, 0.1)"
-                    e.currentTarget.style.boxShadow = "0 10px 40px rgba(255, 215, 0, 0.4)"
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255, 215, 0, 0.3)"
-                    e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.6)"
-                    e.currentTarget.style.boxShadow = "none"
-                  }}
-                >
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background: "radial-gradient(circle at center, rgba(255, 215, 0, 0.1), transparent)",
-                    }}
-                  />
-
-                  <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, type: "spring", stiffness: 200 }}
-                    className="relative z-10"
-                  >
-                    <value.icon className="h-10 w-10 mx-auto mb-3" style={{ color: "#FFD700" }} />
-                  </motion.div>
-                  <h3 className="text-lg font-bold mb-2 text-white relative z-10">{value.title}</h3>
-                  <p className="text-gray-400 text-xs leading-relaxed relative z-10">{value.description}</p>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <motion.section className="py-12 px-4 relative overflow-hidden" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-        <motion.div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: "radial-gradient(circle at 80% 50%, rgba(255, 165, 0, 0.4), transparent 60%)",
-          }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-
-        <div className="container mx-auto max-w-5xl relative z-10">
-          <motion.div className="text-center mb-10" variants={fadeInUp}>
-            <h2
-              className="text-3xl md:text-4xl font-bold mb-3"
-              style={{
-                background: "linear-gradient(135deg, #FFD700, #FFA500)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Our Experience
             </h2>
-            <div className="h-0.5 w-20 mx-auto" style={{ background: "linear-gradient(to right, #FFD700, #FFA500)" }} />
+            <div className="h-0.5 w-16 mx-auto mb-4" style={{ background: "linear-gradient(to right, #FFD700, #FFA500)" }} />
+
+            <motion.div className="space-y-3 text-gray-300 leading-relaxed" variants={staggerContainer}>
+              <motion.p variants={fadeInUp}>
+                Founded with a passion for capturing life’s most meaningful moments, our studio has grown into a trusted destination for professional
+                photography.
+              </motion.p>
+              <motion.p variants={fadeInUp}>
+                Every project begins with a simple belief: moments deserve to be preserved with care, intention, and beauty.
+              </motion.p>
+              <motion.p variants={fadeInUp}>We don’t just take photos—we craft visual stories meant to last generations.</motion.p>
+            </motion.div>
           </motion.div>
 
-          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center" variants={staggerContainer}>
-            {[
-              { number: 10, suffix: "+", label: "Years", desc: "Decade of capturing moments", icon: Award },
-              { number: 500, suffix: "+", label: "Happy Clients", desc: "Satisfied customers", icon: Users },
-              { number: 50, suffix: "K+", label: "Photos Taken", desc: "Memories preserved", icon: Camera },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                className="p-6 rounded-xl border-2 relative overflow-hidden group"
+          {/* VALUES */}
+          <motion.div className="space-y-6" variants={staggerContainer}>
+            <motion.div className="text-center" variants={fadeInUp}>
+              <h3
+                className="text-2xl md:text-3xl font-bold mb-2"
                 style={{
-                  backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  borderColor: "rgba(255, 215, 0, 0.3)",
-                }}
-                variants={fadeInUp}
-                whileHover={{
-                  scale: 1.05,
-                  y: -8,
-                  borderColor: "#FFD700",
-                  backgroundColor: "rgba(255, 215, 0, 0.1)",
-                  boxShadow: "0 15px 50px rgba(255, 215, 0, 0.4)",
+                  background: "linear-gradient(135deg, #FFD700, #FFA500)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                 }}
               >
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: "radial-gradient(circle at center, rgba(255, 215, 0, 0.15), transparent)",
-                  }}
-                />
+                Our Values
+              </h3>
+              <p className="text-sm text-gray-400">Principles that guide every frame we create</p>
+            </motion.div>
 
-                <motion.div
-                  className="relative z-10"
-                  initial={{ opacity: 0, scale: 0.3, rotate: -45 }}
-                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.15, type: "spring", stiffness: 150 }}
-                >
-                  <stat.icon className="h-8 w-8 mx-auto mb-2" style={{ color: "#FFD700" }} />
-                  <div
-                    className="text-4xl font-bold mb-1"
+            <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {values.map((value, index) => (
+                <motion.div key={index} variants={fadeInUp} whileHover={{ y: -8, scale: 1.03 }}>
+                  <Card
+                    className="p-5 text-center h-full border-2 relative overflow-hidden group"
                     style={{
-                      background: "linear-gradient(135deg, #FFD700, #FFA500, #FFD700)",
+                      backgroundColor: "rgba(0,0,0,.6)",
+                      borderColor: "rgba(255,215,0,.3)",
+                    }}
+                  >
+                    <value.icon className="h-9 w-9 mx-auto mb-2" style={{ color: "#FFD700" }} />
+                    <h4 className="text-base font-bold text-white mb-1">{value.title}</h4>
+                    <p className="text-xs text-gray-400 leading-relaxed">{value.description}</p>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* EXPERIENCE */}
+          <motion.div className="space-y-6" variants={staggerContainer}>
+            <motion.div className="text-center" variants={fadeInUp}>
+              <h3
+                className="text-2xl md:text-3xl font-bold"
+                style={{
+                  background: "linear-gradient(135deg, #FFD700, #FFA500)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                Our Experience
+              </h3>
+            </motion.div>
+
+            <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+              {[
+                { number: 10, suffix: "+", label: "Years", desc: "Creative excellence", icon: Award },
+                { number: 500, suffix: "+", label: "Clients", desc: "Trusted partnerships", icon: Users },
+                { number: 50, suffix: "K+", label: "Photos", desc: "Moments preserved", icon: Camera },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="p-5 rounded-xl border-2 relative overflow-hidden"
+                  style={{
+                    backgroundColor: "rgba(0,0,0,.6)",
+                    borderColor: "rgba(255,215,0,.3)",
+                  }}
+                  variants={fadeInUp}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -6,
+                    borderColor: "#FFD700",
+                  }}
+                >
+                  <stat.icon className="h-7 w-7 mx-auto mb-2" style={{ color: "#FFD700" }} />
+                  <div
+                    className="text-4xl font-bold"
+                    style={{
+                      background: "linear-gradient(135deg, #FFD700, #FFA500)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                     }}
                   >
-                    <CountingNumber number={stat.number}></CountingNumber>
+                    <CountingNumber number={stat.number} />
                     {stat.suffix}
                   </div>
-                  <div className="text-base font-semibold mb-1 text-white">{stat.label}</div>
-                  <p className="text-gray-400 text-xs">{stat.desc}</p>
+                  <div className="text-sm font-semibold text-white">{stat.label}</div>
+                  <p className="text-xs text-gray-400">{stat.desc}</p>
                 </motion.div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Studio Section */}
-      <section className="py-12 px-4 relative">
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            className="text-center mb-8 space-y-2"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.p className="text-xs uppercase tracking-[0.3em] font-bold" style={{ color: "#FFD700" }} variants={fadeInUp}>
-              Our Creative Space
-            </motion.p>
-            <motion.h2
-              className="text-3xl md:text-4xl font-serif font-bold"
-              style={{
-                background: "linear-gradient(135deg, #FFD700, #FFA500)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-              variants={fadeInUp}
-            >
-              The Luminous Studio
-            </motion.h2>
+              ))}
+            </motion.div>
           </motion.div>
 
-          <motion.div className="space-y-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            <motion.p className="text-base text-gray-300 leading-relaxed text-center max-w-3xl mx-auto" variants={fadeInUp}>
-              Our studio is thoughtfully designed to spark creativity and support every artistic vision.
+          {/* STUDIO */}
+          <motion.div className="space-y-6" variants={staggerContainer}>
+            <motion.div className="text-center" variants={fadeInUp}>
+              <p className="text-xs uppercase tracking-widest font-bold text-[#FFD700]">Our Creative Space</p>
+              <h3
+                className="text-2xl md:text-3xl font-serif font-bold"
+                style={{
+                  background: "linear-gradient(135deg, #FFD700, #FFA500)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                The Luminous Studio
+              </h3>
+            </motion.div>
+
+            <motion.p className="text-gray-300 text-center max-w-2xl mx-auto text-sm" variants={fadeInUp}>
+              A thoughtfully designed environment that empowers creativity, precision, and artistic freedom.
             </motion.p>
 
-            <motion.div className="grid md:grid-cols-3 gap-4" variants={staggerContainer}>
+            <motion.div className="grid md:grid-cols-3 gap-4">
               {[
-                {
-                  icon: Camera,
-                  title: "Professional Equipment",
-                  desc: "Industry-leading cameras, lenses, and lighting systems.",
-                },
-                {
-                  icon: Zap,
-                  title: "Production Capabilities",
-                  desc: "Editing workstations with industry-standard software.",
-                },
-                {
-                  icon: Palette,
-                  title: "Creative Environment",
-                  desc: "Multiple backdrops, infinity coves, natural light studios.",
-                },
+                { icon: Camera, title: "Professional Equipment", desc: "Industry-leading cameras and lighting." },
+                { icon: Zap, title: "Production Capabilities", desc: "High-end editing and workflows." },
+                { icon: Palette, title: "Creative Environment", desc: "Natural light, backdrops, and freedom." },
               ].map((item, index) => (
                 <motion.div
                   key={index}
-                  className="p-6 rounded-xl transition-all duration-300 border-2 relative overflow-hidden group"
+                  className="p-5 rounded-xl border-2 relative overflow-hidden"
                   style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.6)",
-                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    backgroundColor: "rgba(0,0,0,.6)",
+                    borderColor: "rgba(255,215,0,.3)",
                   }}
                   variants={fadeInUp}
-                  whileHover={{
-                    y: -8,
-                    scale: 1.02,
-                    borderColor: "#FFD700",
-                    backgroundColor: "rgba(255, 215, 0, 0.1)",
-                    boxShadow: "0 10px 40px rgba(255, 215, 0, 0.3)",
-                  }}
+                  whileHover={{ y: -6, scale: 1.03 }}
                 >
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background: "radial-gradient(circle at center, rgba(255, 215, 0, 0.1), transparent)",
-                    }}
-                  />
-
-                  <motion.div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 relative z-10"
-                    style={{ backgroundColor: "rgba(255, 215, 0, 0.2)" }}
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <item.icon className="h-6 w-6" style={{ color: "#FFD700" }} />
-                  </motion.div>
-                  <h3 className="font-serif font-bold text-lg mb-2 text-white relative z-10">{item.title}</h3>
-                  <p className="text-gray-400 text-xs relative z-10">{item.desc}</p>
+                  <item.icon className="h-6 w-6 mb-2" style={{ color: "#FFD700" }} />
+                  <h4 className="text-base font-bold text-white mb-1">{item.title}</h4>
+                  <p className="text-xs text-gray-400">{item.desc}</p>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Team Section */}
       <section className="py-12 px-4">
@@ -501,6 +409,7 @@ export default function About() {
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
+                onClick={() => setSelectedMember(member)}
                 className="group rounded-xl overflow-hidden transition-all duration-300 border-2 relative"
                 style={{
                   borderColor: "rgba(255, 215, 0, 0.3)",
@@ -554,6 +463,8 @@ export default function About() {
           </motion.div>
         </div>
       </section>
+
+      <TeamMemberDialog selectedMember={selectedMember} setSelectedMember={setSelectedMember} />
 
       {/* CTA Section */}
       <section className="py-24 px-6 bg-black relative overflow-hidden border-t-2 border-amber-500">
@@ -616,14 +527,6 @@ export default function About() {
                 <Camera className="w-5 h-5 mr-2" />
                 Start Your Project
               </Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="border-2 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black bg-transparent font-bold"
-            >
-              <Link href="/about">Learn About Us</Link>
             </Button>
           </motion.div>
         </div>

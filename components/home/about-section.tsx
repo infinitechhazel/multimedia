@@ -111,7 +111,7 @@ export default function AboutSection() {
 
   const backgroundY = useTransform(smoothProgress, [0, 1], ["0%", "30%"])
   const imageY = useTransform(imageScrollProgress, [0, 1], ["-20%", "20%"])
-  const imageScale = useTransform(imageScrollProgress, [0, 0.5, 1], [1.3, 1, 1.3])
+  const imageScale = useTransform(imageScrollProgress, [0, 0.5, 1], [1.1, 1, 1.1])
   const imageRotate = useTransform(imageScrollProgress, [0, 1], [-3, 3])
   const isMobile = useIsMobile()
   const isTablet = useIsTablet()
@@ -236,9 +236,9 @@ export default function AboutSection() {
             transition={{ duration: 1, delay: 0.2 }}
           >
             <ApertureReveal delay={0.3}>
-              <div className="relative">
+              <div className="relative max-w-sm mx-auto">
                 <motion.div
-                  className="relative aspect-[4/5] overflow-hidden border-4 shadow-2xl"
+                  className="relative aspect-[4/5] h-[320px] md:h-[420px] lg:h-[500px] overflow-hidden border-4 shadow-2xl"
                   style={{
                     borderColor: "rgba(255, 149, 0, 0.5)",
                     boxShadow: "0 25px 70px rgba(255, 149, 0, 0.4)",
@@ -362,25 +362,6 @@ export default function AboutSection() {
                   <div className="text-black/90">ISO 100</div>
                 </motion.div>
 
-                {/* Award badge */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 1, type: "spring", stiffness: 150 }}
-                  className=" absolute -left-6 bottom-0.5 lg:bottom-1/4 w-15 h-15 lg:w-20 lg:h-20 rounded-full flex items-center justify-center shadow-2xl border-4 border-black"
-                  style={{
-                    background: "linear-gradient(135deg, #ff9500, #ff8c00)",
-                    boxShadow: "0 10px 40px rgba(255, 149, 0, 0.6)",
-                  }}
-                  whileHover={{
-                    scale: 1.25,
-                    rotate: 360,
-                    transition: { duration: 0.7, type: "spring", stiffness: 100 },
-                  }}
-                >
-                  <Award className="w-10 h-10 text-black" />
-                </motion.div>
               </div>
             </ApertureReveal>
           </motion.div>

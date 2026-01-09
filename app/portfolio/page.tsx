@@ -8,6 +8,7 @@ import Link from "next/link"
 import { useState, useMemo } from "react"
 import { Camera, Aperture, Focus, ZoomIn, Sparkles, Film } from "lucide-react"
 import FloatingParticles from "@/components/animated-golden-particles"
+import { GalleryLightbox } from "@/components/gallery-lightbox"
 
 type Category = "all" | "weddings" | "portraits" | "events" | "products"
 
@@ -130,10 +131,23 @@ const categories: { value: Category; label: string; icon: React.ReactNode }[] = 
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("all")
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const filteredImages = useMemo(() => {
     return selectedCategory === "all" ? galleryImages : galleryImages.filter((img) => img.category === selectedCategory)
-  }, [selectedCategory])
+  }, [selectedCategory, galleryImages])
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index)
+  }
+
+  const handlePrev = () => {
+    setLightboxIndex((prev) => (prev === null ? null : (prev - 1 + filteredImages.length) % filteredImages.length))
+  }
+
+  const handleNext = () => {
+    setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % filteredImages.length))
+  }
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
@@ -264,7 +278,7 @@ export default function Portfolio() {
       {/* Gallery Grid with Enhanced Hover Effects */}
       <section className="px-6 py-20 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <AnimatePresence mode="popLayout">
               {filteredImages.map((image, index) => (
                 <motion.div
@@ -275,6 +289,7 @@ export default function Portfolio() {
                   exit={{ opacity: 0, scale: 0.8, rotateY: 30 }}
                   transition={{ delay: index * 0.08, duration: 0.6, type: "spring" }}
                   className="relative group cursor-pointer"
+                  onClick={() => setLightboxIndex(index)}
                   onMouseEnter={() => setHoveredId(image.id)}
                   onMouseLeave={() => setHoveredId(null)}
                   whileHover={{ y: -10 }}
@@ -419,6 +434,13 @@ export default function Portfolio() {
           </motion.div>
         </div>
       </section>
+
+      <GalleryLightbox
+        image={lightboxIndex !== null ? filteredImages[lightboxIndex] : null}
+        onClose={() => setLightboxIndex(null)}
+        onPrev={() => setLightboxIndex((prev) => (prev === null ? null : (prev - 1 + filteredImages.length) % filteredImages.length))}
+        onNext={() => setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % filteredImages.length))}
+      />
 
       {/* CTA Section */}
       <section className="py-24 px-6 bg-black relative overflow-hidden border-t-2 border-amber-500">
