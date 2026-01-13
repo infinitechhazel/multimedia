@@ -7,6 +7,7 @@ import FloatingSocialIcons from "@/components/floating-social-media"
 import Footer from "@/components/layout/Footer"
 import { CameraCursorProvider } from "@/components/camera-cursor-provider"
 import { Navigation } from "@/components/layout/NavBar"
+import { PublicLayoutProvider } from "./providers/layout-context"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,15 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <CameraCursorProvider>
-          <Navigation />
-          <FloatingSocialIcons />
-          {children}
-          <Toaster />
-          <footer>
-            <Footer />
-          </footer>
-        </CameraCursorProvider>
+          <PublicLayoutProvider>
+            {children}
+            <Toaster />
+          </PublicLayoutProvider>
       </body>
     </html>
   )

@@ -40,7 +40,7 @@ export default function BookingPage() {
 
       {/* Hero Section */}
       <motion.section
-        className="py-24 md:py-32 px-6 relative z-10 min-h-[50vh] flex items-center bg-gradient-to-br from-black via-black to-amber-950"
+        className="py-24 md:py-32 px-6 relative z-10 min-h-[50vh] flex items-center bg-linear-to-br from-black via-black to-amber-950"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -51,7 +51,7 @@ export default function BookingPage() {
           </motion.p>
 
           <motion.h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight" variants={itemVariants}>
-            Let's Create Something <span className="bg-gradient-to-r from-amber-500 to-amber-400 bg-clip-text text-transparent">Beautiful</span>
+            Let's Create Something <span className="bg-linear-to-r from-amber-500 to-amber-400 bg-clip-text text-transparent">Beautiful</span>
           </motion.h1>
 
           <motion.p className="text-base md:text-lg text-white max-w-2xl mx-auto leading-relaxed" variants={itemVariants}>
@@ -61,7 +61,7 @@ export default function BookingPage() {
       </motion.section>
 
       <section ref={ref} className="py-10 px-6">
-        <div className="absolute  bg-gradient-to-br from-black via-[#0a0a0a] to-[#1a1408]" />
+        <div className="absolute  bg-linear-to-br from-black via-[#0a0a0a] to-[#1a1408]" />
         <motion.section variants={containerVariants} initial="hidden" animate="visible">
           {/* Aperture rings - left */}
           <div className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-50">
@@ -153,7 +153,6 @@ export default function BookingPage() {
 
           {/* Booking Form */}
           <BookingForm />
-
         </motion.section>
 
         <section className="z-20 relative">

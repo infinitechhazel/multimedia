@@ -285,25 +285,23 @@ export default function BookingForm() {
         console.error("Booking error:", bookingRes.status, errorText)
       }
 
-    //   let emailData: any = null
-    //   if (bookingRes.ok) {
-    //     const emailRes = await fetch("/api/send-email", {
-    //       method: "POST",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify(payload),
-    //     })
+      let emailData: any = null
+      if (bookingRes.ok) {
+        const emailRes = await fetch("/api/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
 
-    //     if (emailRes.ok) {
-    //       emailData = await emailRes.json()
-    //     } else {
-    //       const errorText = await emailRes.text()
-    //       console.error("Email error:", emailRes.status, errorText)
-    //     }
-    //   }
+        if (emailRes.ok) {
+          emailData = await emailRes.json()
+        } else {
+          const errorText = await emailRes.text()
+          console.error("Email error:", emailRes.status, errorText)
+        }
+      }
 
-      if (bookingRes.ok 
-        // && emailData?.success
-    ) {
+      if (bookingRes.ok && emailData?.success) {
         setSubmitted(true)
         setErrors({ email: "", phone: "", date: "", time: "" })
       } else {
