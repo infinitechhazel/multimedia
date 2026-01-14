@@ -4,12 +4,15 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Plus, MoreHorizontal, Pencil, Trash2, Eye } from "lucide-react"
+import { Plus, MoreHorizontal, Pencil, Trash2, Eye, ListIcon, CalendarIcon, Square, LayoutDashboard } from "lucide-react"
 import { toast } from "sonner"
 import { DataTable } from "@/components/admin/data-table"
 import { BookingViewDialog } from "@/components/admin/bookings/admin-view-booking"
 import { BookingFormDialog } from "@/components/admin/bookings/admin-booking-form"
 import { BookingDeleteDialog } from "@/components/admin/bookings/admin-delete-booking"
+import { CalendarBookings } from "@/components/admin/bookings/calendar"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { KanbanBookings } from "@/components/admin/bookings/kanban"
 
 interface Booking {
   id: string
@@ -107,7 +110,7 @@ const AdminBookings = () => {
 
       setData([dataJson.booking, ...data])
       setIsAddOpen(false)
-
+      await fetchData()
       // reset form state
       setFormData({
         firstName: "",
@@ -153,6 +156,20 @@ const AdminBookings = () => {
 
       setIsEditOpen(false)
       setSelectedItem(null)
+      await fetchData()
+      // reset form state
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        serviceType: "Wedding Photography",
+        date: "",
+        time: "",
+        guests: "1",
+        status: "pending",
+        message: "",
+      })
       toast.success(dataJson.message, { position: "top-right" })
     } catch (err) {
       console.error(err)
@@ -217,21 +234,21 @@ const AdminBookings = () => {
     { accessorKey: "serviceType", header: "Service", enableSorting: true },
     { accessorKey: "date", header: "Date", enableSorting: true },
     { accessorKey: "time", header: "Time" },
-    { accessorKey: "guest", header: "Guest" },
-    { accessorKey: "messsage", header: "Message" },
+    { accessorKey: "guests", header: "Guest" },
+    { accessorKey: "message", header: "Message" },
     {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => (
         <Badge
-          variant={
+          className={
             row.original.status === "confirmed"
-              ? "default"
+              ? "bg-green-100 text-green-800 border border-green-200"
               : row.original.status === "completed"
-              ? "secondary"
+              ? "bg-blue-100 text-blue-800 border border-blue-200"
               : row.original.status === "cancelled"
-              ? "destructive"
-              : "outline"
+              ? "bg-red-100 text-red-800 border border-red-200"
+              : "bg-yellow-100 text-yellow-800 border border-yellow-200"
           }
         >
           {row.original.status}
@@ -279,34 +296,67 @@ const AdminBookings = () => {
   ]
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 sm:space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-serif font-bold">Bookings</h1>
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold">Bookings</h1>
           <p className="text-muted-foreground mt-1">Manage client bookings and appointments.</p>
         </div>
-        <Button onClick={() => setIsAddOpen(true)} className="bg-gold hover:bg-gold/90 text-primary-foreground">
+        <Button onClick={() => setIsAddOpen(true)} className="bg-gold hover:bg-gold/90 text-primary-foreground w-full sm:w-auto">
           <Plus className="w-4 h-4 mr-2" />
           Add Booking
         </Button>
       </div>
 
-      <DataTable
-        columns={columns}
-        data={data}
-        pageCount={totalPages} // from Laravel's last_page
-        pageIndex={pageIndex} // local state
-        pageSize={pageSize} // local state
-        onPageChange={(pi, ps) => {
-          setPageIndex(pi)
-          setPageSize(ps)
-          fetchData() // trigger backend fetch
-        }}
-        searchFields={globalFields}
-        searchPlaceholder="Search by client name..."
-        search={search}
-        onSearchChange={setSearch}
-      />
+      <div className="flex w-full flex-col gap-6">
+        <Tabs defaultValue="list" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="list" className="flex items-center gap-2">
+              <ListIcon className="w-4 h-4" />
+              List View
+            </TabsTrigger>
+            <TabsTrigger value="calendar" className="flex items-center gap-2">
+              <CalendarIcon className="w-4 h-4" />
+              Calendar View
+            </TabsTrigger>
+            <TabsTrigger value="kanban" className="flex items-center gap-2">
+              <LayoutDashboard className="w-4 h-4" />
+              Board View
+            </TabsTrigger>
+          </TabsList>
+
+          {/* List View */}
+          <TabsContent value="list">
+            <DataTable
+              columns={columns}
+              data={data}
+              pageCount={totalPages}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              onPageChange={(pi, ps) => {
+                setPageIndex(pi)
+                setPageSize(ps)
+                fetchData()
+              }}
+              searchFields={globalFields}
+              searchPlaceholder="Search by client name..."
+              search={search}
+              onSearchChange={setSearch}
+            />
+          </TabsContent>
+
+          {/* Calendar View */}
+          <TabsContent value="calendar">
+            <CalendarBookings bookings={data} search={search} onRefetch={fetchData} />
+          </TabsContent>
+
+          {/* Kanban View */}
+          <TabsContent value="kanban">
+            <KanbanBookings bookings={data} onRefetch={fetchData} />
+          </TabsContent>
+        </Tabs>
+      </div>
 
       {/* Dialogs */}
       <BookingViewDialog open={isViewOpen} setOpen={setIsViewOpen} booking={selectedItem} />

@@ -111,8 +111,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {mobileMenuOpen && <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 lg:hidden" onClick={() => setMobileMenuOpen(false)} />}
 
       {/* Main content */}
-      <main className="flex-1 min-h-screen">
-        <div className="p-6 lg:p-8 text-black">{children}</div>
+      <main className="flex-1 min-h-screen overflow-x-hidden">
+        <div className="p-4 sm:p-6 lg:p-8 text-black max-w-7xl mx-auto w-full">
+          {/* Add horizontal scroll for tables */}
+          <div className="overflow-x-auto">{children}</div>
+        </div>
       </main>
     </div>
   )
