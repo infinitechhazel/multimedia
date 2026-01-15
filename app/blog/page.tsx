@@ -1,8 +1,13 @@
 "use client"
+<<<<<<< HEAD
+=======
+
+>>>>>>> fork/fork/main
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Calendar, User, ArrowRight, Camera, Aperture, CameraIcon, Focus, ZoomIn, Film } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+<<<<<<< HEAD
 import Image from "next/image"
 import { useState, useRef } from "react"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
@@ -89,6 +94,17 @@ const posts = [
   },
 ]
 
+=======
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import FloatingParticles from "@/components/animated-golden-particles"
+import { Post } from "@/lib/types/types"
+import ScrollZoomCard from "@/components/blog/scroll-zoom-card"
+import Marquee from "react-fast-marquee"
+
+type Category = "all" | "wedding" | "portrait" | "event" | "product" | "studio"
+
+>>>>>>> fork/fork/main
 const categories: { value: Category; label: string; icon: React.ReactNode }[] = [
   { value: "all", label: "All Posts", icon: <Camera className="w-4 h-4" /> },
   { value: "wedding", label: "Weddings", icon: <Aperture className="w-4 h-4" /> },
@@ -98,7 +114,20 @@ const categories: { value: Category; label: string; icon: React.ReactNode }[] = 
   { value: "studio", label: "Studio", icon: <CameraIcon className="w-4 h-4" /> },
 ]
 
+<<<<<<< HEAD
 const featuredPost = posts[0]
+=======
+function getImageSrc(image: string | File | null): string | undefined {
+  if (!image) return undefined
+  if (typeof image === "string") {
+    const normalized = image.includes("/storage/") ? image : `/storage/${image.replace(/^\/+/, "")}`
+    return `${process.env.NEXT_PUBLIC_API_IMG}${normalized}`
+  }
+  if (image instanceof File) {
+    return URL.createObjectURL(image)
+  }
+}
+>>>>>>> fork/fork/main
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
@@ -107,6 +136,7 @@ const fadeInUp = {
 
 const staggerContainer = {
   hidden: { opacity: 0 },
+<<<<<<< HEAD
   visible: {
     opacity: 1,
     transition: { staggerChildren: 0.1, delayChildren: 0.2 },
@@ -160,11 +190,65 @@ export default function Blog() {
   return (
     <div className="min-h-screen pt-20 bg-gradient-to-br from-[#1a0f0a] via-[#2d1810] to-[#4a2818] relative overflow-hidden">
       {/* Animated Gold Particles */}
+=======
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+}
+
+// Shutter animation
+const shutterVariants = {
+  closed: { clipPath: "polygon(0 50%, 100% 50%, 100% 50%, 0 50%)" },
+  open: { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" },
+}
+
+const flashVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: [0, 1, 0], transition: { duration: 0.5, times: [0, 0.5, 1] } },
+}
+
+const focusRing = {
+  initial: { scale: 0.8, opacity: 0 },
+  animate: { scale: [0.8, 1.2, 1], opacity: [0, 1, 0], transition: { duration: 2, repeat: Infinity, repeatDelay: 3 } },
+}
+
+export default function Blog() {
+  const [posts, setPosts] = useState<Post[]>([])
+  const [selectedPost, setSelectedPost] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<Category>("all")
+
+  const filteredPosts = selectedCategory === "all" ? posts : posts.filter((post) => post.category === selectedCategory)
+  const post = selectedPost ? posts.find((p) => p.id === selectedPost) : null
+
+  const featuredPosts = posts.filter((p) => p.featured === true)
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("/api/posts")
+        const data = await res.json()
+        if (Array.isArray(data.posts)) {
+          setPosts(data.posts)
+        } else {
+          setPosts([])
+        }
+      } catch (err) {
+        console.error("Failed to fetch posts:", err)
+      }
+    }
+    fetchPosts()
+  }, [])
+  console.log(posts)
+  console.log(featuredPosts)
+  return (
+    <div className="min-h-screen pt-20 bg-linear-to-br from-[#1a0f0a] via-[#2d1810] to-[#4a2818] relative overflow-hidden">
+>>>>>>> fork/fork/main
       <FloatingParticles count={20} />
 
       {/* Hero Section */}
       <motion.section className="pt-20 pb-20 px-6 relative overflow-hidden" initial="hidden" animate="visible" variants={staggerContainer}>
+<<<<<<< HEAD
         {/* Camera Shutter Effect */}
+=======
+>>>>>>> fork/fork/main
         <motion.div
           className="absolute inset-0 bg-black z-10 pointer-events-none"
           initial="closed"
@@ -233,6 +317,7 @@ export default function Blog() {
         </div>
       </motion.section>
 
+<<<<<<< HEAD
       {/* Featured Post */}
       <motion.section
         ref={featuredRef}
@@ -306,12 +391,121 @@ export default function Blog() {
       {/* Category Filter & Posts Grid */}
       <motion.section
         className="px-6 pb-24"
+=======
+      {/* Featured Posts */}
+      <div className="my-4">
+        {/* <Marquee> */}
+        {featuredPosts.map((featuredPost) => (
+          <motion.section
+            key={featuredPost.id}
+            className="px-6 pb-4"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <div className="max-w-6xl mx-auto">
+              <Card
+                className="overflow-hidden group bg-linear-to-br from-[#2d1810]/80 to-[#1a0f0a]/80 border-[#d4a574]/30 hover:border-[#d4a574] transition-all duration-500 shadow-2xl hover:shadow-[#d4a574]/20 relative backdrop-blur-sm"
+                onClick={() => setSelectedPost(featuredPost.id)}
+              >
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="relative h-64 md:h-auto overflow-hidden">
+                    <motion.div
+                      initial={{ scale: 1.25, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 1.2, ease: "easeOut" }}
+                      viewport={{ once: true }}
+                    >
+                      <img
+                        src={getImageSrc(featuredPost.image) || "/placeholder.svg"}
+                        alt={featuredPost.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </motion.div>
+                    <div className="absolute inset-0 bg-linear-to-r from-black/60 via-amber-900/20 to-transparent" />
+                  </div>
+
+                  <motion.div
+                    className="p-8 md:p-12 flex flex-col justify-center relative"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={{
+                      hidden: {},
+                      visible: { transition: { staggerChildren: 0.15 } },
+                    }}
+                  >
+                    <motion.span
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0 },
+                      }}
+                      transition={{ duration: 0.6 }}
+                      className="inline-block px-3 py-1 bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] text-xs font-semibold rounded-full w-fit mb-4 border border-[#d4a574]/30"
+                    >
+                      {featuredPost.label}
+                    </motion.span>
+
+                    <motion.h2
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0 },
+                      }}
+                      transition={{ duration: 0.6 }}
+                      className="text-2xl md:text-3xl font-bold mb-4"
+                    >
+                      {featuredPost.title}
+                    </motion.h2>
+
+                    <motion.p
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0 },
+                      }}
+                      transition={{ duration: 0.6 }}
+                      className="text-gray-300 mb-6 leading-relaxed"
+                    >
+                      {featuredPost.excerpt}
+                    </motion.p>
+
+                    <motion.div
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0 },
+                      }}
+                      transition={{ duration: 0.6 }}
+                      className="flex items-center gap-4 text-sm text-gray-400"
+                    >
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4 text-[#d4a574]" />
+                        {featuredPost.date}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <User className="w-4 h-4 text-[#d4a574]" />
+                        {featuredPost.author}
+                      </span>
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </Card>
+            </div>
+          </motion.section>
+        ))}
+        {/* </Marquee> */}
+      </div>
+
+      {/* Posts Grid */}
+      <motion.section
+        className="px-6 pb-20"
+>>>>>>> fork/fork/main
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
         variants={staggerContainer}
       >
         <div className="max-w-6xl mx-auto">
+<<<<<<< HEAD
           {/* Category Filter */}
           <div className="flex flex-wrap gap-3 mb-12 justify-center">
             {categories.map((cat, index) => (
@@ -351,6 +545,24 @@ export default function Blog() {
           {/* Posts Grid */}
           <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" variants={fadeInUp} transition={{ duration: 0.8, ease: "easeOut" }}>
             <AnimatePresence mode="popLayout">
+=======
+          <div className="flex flex-wrap gap-3 mb-12 justify-center">
+            {categories.map((cat) => (
+              <button
+                key={cat.value}
+                onClick={() => setSelectedCategory(cat.value)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold ${
+                  selectedCategory === cat.value ? "bg-amber-500 text-black" : "bg-black text-amber-500"
+                }`}
+              >
+                {cat.icon} {cat.label}
+              </button>
+            ))}
+          </div>
+
+          <motion.div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence>
+>>>>>>> fork/fork/main
               {filteredPosts.map((post, index) => (
                 <ScrollZoomCard key={post.id} post={post} index={index} onClick={() => setSelectedPost(post.id)} />
               ))}
@@ -359,6 +571,7 @@ export default function Blog() {
         </div>
       </motion.section>
 
+<<<<<<< HEAD
       {/* CTA Section */}
       <motion.section
         className="py-36 px-6 bg-gradient-to-br from-[#2d1810] via-[#1a0f0a] to-[#2d1810] text-white relative overflow-hidden"
@@ -458,6 +671,17 @@ export default function Blog() {
                   {post.label}
                 </span>
                 <DialogTitle className="text-2xl font-serif bg-gradient-to-r from-white to-[#d4a574] bg-clip-text text-transparent">
+=======
+      <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
+        <DialogContent className="max-w-4xl h-[90vh] bg-linear-to-br from-[#2d1810] to-[#1a0f0a] border-[#d4a574]/50 overflow-y-auto scrollbar-hide">
+          {post && (
+            <>
+              <DialogHeader>
+                <span className="inline-block px-3 py-1 bg-linear-to-r from-[#d4a574]/20 to-[#c9944a]/20 text-[#d4a574] text-xs font-semibold rounded-full w-fit mb-2 border border-[#d4a574]/30">
+                  {post.label}
+                </span>
+                <DialogTitle className="text-2xl font-serif bg-linear-to-r from-white to-[#d4a574] bg-clip-text text-transparent">
+>>>>>>> fork/fork/main
                   {post.title}
                 </DialogTitle>
                 <DialogDescription className="flex items-center gap-4 text-sm text-gray-300">
@@ -472,8 +696,13 @@ export default function Blog() {
                 </DialogDescription>
               </DialogHeader>
               <div className="relative h-64 rounded-lg overflow-hidden my-4">
+<<<<<<< HEAD
                 <Image src={post.image || "/placeholder.svg"} alt={post.title} fill sizes="w-full h-full" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f0a]/60 to-transparent" />
+=======
+                <img src={getImageSrc(post.image) || "/placeholder.svg"} alt={post.title} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-linear-to-r from-[#1a0f0a]/60 to-transparent" />
+>>>>>>> fork/fork/main
               </div>
               <span className="block mb-4 text-xl font-medium text-gold/90 italic border-l-4 border-gold pl-3 py-1">{post.excerpt}</span>
               <p className="text-gray-300 leading-relaxed">{post.content}</p>
@@ -484,6 +713,7 @@ export default function Blog() {
     </div>
   )
 }
+<<<<<<< HEAD
 
 // Scroll zoom component for blog cards
 function ScrollZoomCard({ post, index, onClick }: { post: (typeof posts)[0]; index: number; onClick: () => void }) {
@@ -558,3 +788,5 @@ function ScrollZoomCard({ post, index, onClick }: { post: (typeof posts)[0]; ind
     </motion.div>
   )
 }
+=======
+>>>>>>> fork/fork/main

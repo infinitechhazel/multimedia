@@ -31,6 +31,11 @@ export async function POST(req: Request) {
   }
 }
 
+<<<<<<< HEAD
+=======
+
+// get all scheduled dates and time
+>>>>>>> fork/fork/main
 export async function GET() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings/schedule`, {
