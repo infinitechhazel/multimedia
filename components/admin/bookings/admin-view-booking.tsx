@@ -1,20 +1,7 @@
 "use client"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
-
-interface Booking {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  serviceType: string
-  date: string
-  time: string
-  guests: string
-  status: "pending" | "confirmed" | "completed" | "cancelled"
-  message: string
-}
+import { Booking } from "@/lib/types/types"
 
 interface BookingViewDialogProps {
   open: boolean
@@ -27,7 +14,7 @@ export function BookingViewDialog({ open, setOpen, booking }: BookingViewDialogP
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="text-black">
+      <DialogContent className="text-black max-h-[90vh] overflow-y-auto scrollbar-hide">
         <DialogHeader>
           <DialogTitle className="text-accent">Booking Details</DialogTitle>
         </DialogHeader>

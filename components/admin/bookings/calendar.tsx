@@ -9,20 +9,7 @@ import { BookingFormDialog } from "./admin-booking-form"
 import { BookingDeleteDialog } from "./admin-delete-booking"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { toast } from "sonner"
-
-interface Booking {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  serviceType: string
-  date: string
-  time: string
-  guests: string
-  status: "pending" | "confirmed" | "completed" | "cancelled"
-  message: string
-}
+import { Booking } from "@/lib/types/types"
 
 interface CalendarBookingsProps {
   bookings: Booking[]
@@ -49,6 +36,7 @@ export function CalendarBookings({ bookings, search, onSearchChange, onRefetch }
   const startPadding = getDay(startOfMonth(currentMonth))
 
   const filteredBookings = useMemo(() => {
+    if (!Array.isArray(bookings)) return []
     if (!search) return bookings
     return bookings.filter((b) => `${b.firstName} ${b.lastName} ${b.email} ${b.serviceType}`.toLowerCase().includes(search.toLowerCase()))
   }, [bookings, search])
@@ -79,6 +67,15 @@ export function CalendarBookings({ bookings, search, onSearchChange, onRefetch }
     setIsDeleteOpen(true)
   }
 
+  const refetchWithLoading = async () => {
+    setLoading(true)
+    try {
+      await onRefetch()
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const handleEdit = async (formData: Booking) => {
     if (!selectedItem) return
     setLoading(true)
@@ -98,9 +95,8 @@ export function CalendarBookings({ bookings, search, onSearchChange, onRefetch }
       }
       setIsEditOpen(false)
       setSelectedItem(null)
-      await onRefetch()
+      await refetchWithLoading()
       toast.success(dataJson.message, { position: "top-right" })
-      
     } catch (err) {
       console.error(err)
       toast.error("Failed to update booking", { position: "top-right" })
@@ -128,7 +124,7 @@ export function CalendarBookings({ bookings, search, onSearchChange, onRefetch }
 
       setIsDeleteOpen(false)
       setSelectedItem(null)
-      await onRefetch()
+      await refetchWithLoading()
       toast.success("Success", { description: "Booking deleted successfully.", position: "top-right" })
     } catch (err) {
       console.error(err)
@@ -153,79 +149,86 @@ export function CalendarBookings({ bookings, search, onSearchChange, onRefetch }
         </Button>
       </div>
 
-      {/* Calendar Grid */}
-      <div className="grid grid-cols-7 gap-2">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-          <div key={day} className="text-center text-sm font-medium text-muted-foreground">
-            {day}
-          </div>
-        ))}
-
-        {Array.from({ length: startPadding }).map((_, i) => (
-          <div key={`empty-${i}`} />
-        ))}
-
-        {daysInMonth.map((day: any) => {
-          const dayBookings = bookingsByDay(day)
-
-          return (
-            <div className="min-h-[130px] rounded-lg border border-border p-2 hover:bg-muted/30">
-              <div className="text-sm font-semibold mb-2">{format(day, "d")}</div>
-
-              <div className="space-y-1">
-                {dayBookings.length ? (
-                  dayBookings.map((booking) => (
-                    <div className="flex items-center justify-between w-full rounded text-xs transition">
-                      {/* Booking button */}
-                      <button
-                        key={booking.id}
-                        onClick={() => {
-                          setSelectedItem(booking)
-                          setIsViewOpen(true)
-                        }}
-                        className={`flex flex-col text-left truncate ${statusStyles[booking.status]} flex-1`}
-                      >
-                        <div className="font-medium">
-                          {booking.time} · {booking.firstName} {booking.lastName}
-                        </div>
-                        <div className="opacity-70 truncate">{booking.serviceType}</div>
-                      </button>
-
-                      {/* Dropdown menu */}
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <button className="p-1 rounded hover:bg-black/5 ml-2">
-                            <MoreVertical className="w-4 h-4" />
-                          </button>
-                        </DropdownMenuTrigger>
-
-                        <DropdownMenuContent align="end" className="w-36">
-                          <DropdownMenuItem onClick={() => openView(booking)}>
-                            <Eye className="w-4 h-4 mr-2" />
-                            View
-                          </DropdownMenuItem>
-
-                          <DropdownMenuItem onClick={() => openEdit(booking)}>
-                            <Pencil className="w-4 h-4 mr-2" />
-                            Edit
-                          </DropdownMenuItem>
-
-                          <DropdownMenuItem onClick={() => openDelete(booking)} className="text-red-600">
-                            <Trash className="w-4 h-4 mr-2" />
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  ))
-                ) : (
-                  <span className="text-xs text-muted-foreground">No bookings</span>
-                )}
+      {loading ? (
+        <div className="flex justify-center items-center py-10">
+          <span className="text-sm text-muted-foreground">Loading bookings...</span>
+        </div>
+      ) : (
+        <>
+          {/* Calendar Grid */}
+          <div className="grid grid-cols-7 gap-2">
+            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+              <div key={day} className="text-center text-sm font-medium text-muted-foreground">
+                {day}
               </div>
-            </div>
-          )
-        })}
-      </div>
+            ))}
+
+            {Array.from({ length: startPadding }).map((_, i) => (
+              <div key={`empty-${i}`} />
+            ))}
+
+            {daysInMonth.map((day: any) => {
+              const dayBookings = bookingsByDay(day)
+
+              return (
+                <div className="min-h-[130px] rounded-lg border border-border p-2 hover:bg-muted/30">
+                  <div className="text-sm font-semibold mb-2">{format(day, "d")}</div>
+
+                  <div className="space-y-1">
+                    {dayBookings.length ? (
+                      dayBookings.map((booking, index) => (
+                        <div key={index} className="w-full rounded text-xs transition">
+                          <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between ${statusStyles[booking.status]} rounded p-2`}>
+                            {/* Booking button */}
+                            <button
+                              key={booking.id}
+                              onClick={() => {
+                                setSelectedItem(booking)
+                                setIsViewOpen(true)
+                              }}
+                              className="flex flex-col text-left truncate flex-1"
+                            >
+                              <div className="font-medium">
+                                {booking.time} · {booking.firstName} {booking.lastName}
+                              </div>
+                              <div className="opacity-70 truncate">{booking.serviceType}</div>
+                            </button>
+
+                            {/* Dropdown menu */}
+                            <div className="shrink-0 mt-2 sm:mt-0 sm:ml-2">
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <button className="p-1 rounded hover:bg-black/5">
+                                    <MoreVertical className="w-4 h-4" />
+                                  </button>
+                                </DropdownMenuTrigger>
+
+                                <DropdownMenuContent align="end" className="w-36">
+                                  <DropdownMenuItem onClick={() => openView(booking)}>
+                                    <Eye className="w-4 h-4 mr-2" /> View
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => openEdit(booking)}>
+                                    <Pencil className="w-4 h-4 mr-2" /> Edit
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => openDelete(booking)} className="text-red-600">
+                                    <Trash className="w-4 h-4 mr-2" /> Delete
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <span className="text-xs text-muted-foreground">No bookings</span>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </>
+      )}
 
       {/* Dialogs */}
       <BookingViewDialog open={isViewOpen} setOpen={setIsViewOpen} booking={selectedItem} />

@@ -13,24 +13,11 @@ import { BookingDeleteDialog } from "@/components/admin/bookings/admin-delete-bo
 import { CalendarBookings } from "@/components/admin/bookings/calendar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { KanbanBookings } from "@/components/admin/bookings/kanban"
-
-interface Booking {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  serviceType: string
-  date: string
-  time: string
-  guests: string
-  status: "pending" | "confirmed" | "completed" | "cancelled"
-  message: string
-  approved?: boolean
-}
+import { Booking } from "@/lib/types/types"
 
 const AdminBookings = () => {
   const [data, setData] = useState<Booking[]>([])
+  const [allBookings, setAllBookings] = useState<Booking[]>([])
   const [isAddOpen, setIsAddOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
@@ -76,7 +63,6 @@ const AdminBookings = () => {
 
       const res = await fetch(`/api/admin/bookings?${query.toString()}`)
       const json = await res.json()
-      console.log("API response:", json)
       const bookings = Array.isArray(json.data) ? json.data : json
       setData(bookings)
       setTotalPages(json.last_page ?? 1)
@@ -87,11 +73,19 @@ const AdminBookings = () => {
     }
   }
 
+  const fetchAll = async () => {
+    const res = await fetch("/api/admin/bookings?all=true")
+    const data = await res.json()
+    setAllBookings(data.bookings)
+  }
+
   useEffect(() => {
     fetchData()
+    fetchAll()
   }, [page, pageIndex, pageSize, search, statusFilter, approvedFilter, sortBy, sortOrder])
 
   const handleAdd = async (formData: Booking) => {
+    console.log("formdataaaa: ", formData)
     try {
       setLoading(true)
 
@@ -104,7 +98,7 @@ const AdminBookings = () => {
       const dataJson = await res.json()
 
       if (!res.ok) {
-        toast.error("Error", { description: dataJson.message, position: "top-right" })
+        toast.error("Error", { description: "Booking could not be saved" })
         return
       }
 
@@ -134,30 +128,42 @@ const AdminBookings = () => {
     }
   }
 
-  const handleEdit = async (formData: Booking) => {
+  const handleEdit = async (updatedBooking: Booking) => {
     if (!selectedItem) return
     setLoading(true)
-
+    console.log("formdataaaa: ", formData)
     try {
       const res = await fetch(`/api/admin/bookings/${selectedItem.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedBooking),
       })
 
-      const dataJson = await res.json()
-
-      if (!res.ok) {
-        toast.error(dataJson.message || "Failed to update booking", { position: "top-right" })
+      // Try parsing JSON, fallback to text if invalid
+      let data: any
+      try {
+        data = await res.json()
+      } catch {
+        const text = await res.text()
+        console.error("Failed to parse JSON, raw response:", text)
+        toast.error("Error", { description: "Server returned invalid data" })
         return
       }
 
-      setData((prev) => prev.map((item) => (item.id === selectedItem.id ? dataJson.booking : item)))
+      if (!res.ok) {
+        toast.error("Error", { description: "Failed to update booking" })
+        return
+      }
 
+      // Update local state optimistically
+      setData((prev) => prev.map((item) => (item.id === selectedItem.id ? data.booking : item)))
+
+      toast.success("Success", { description: "Booking updated successfully" })
       setIsEditOpen(false)
       setSelectedItem(null)
       await fetchData()
-      // reset form state
+
+      // Reset form
       setFormData({
         firstName: "",
         lastName: "",
@@ -170,10 +176,9 @@ const AdminBookings = () => {
         status: "pending",
         message: "",
       })
-      toast.success(dataJson.message, { position: "top-right" })
-    } catch (err) {
-      console.error(err)
-      toast.error("Failed to update booking", { position: "top-right" })
+    } catch (error) {
+      console.error("Error updating booking:", error)
+      toast.error("Something went wrong", { position: "top-right" })
     } finally {
       setLoading(false)
     }
@@ -192,7 +197,7 @@ const AdminBookings = () => {
       const dataJson = await res.json()
 
       if (!res.ok) {
-        toast.error("Error", { description: dataJson.message, position: "top-right" })
+        toast.error("Error", { description: "Something went wrong", position: "top-right" })
         return
       }
 
@@ -292,6 +297,8 @@ const AdminBookings = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ),
+      enableSorting: false,
+      enableColumnFilter: false,
     },
   ]
 
@@ -311,7 +318,7 @@ const AdminBookings = () => {
 
       <div className="flex w-full flex-col gap-6">
         <Tabs defaultValue="list" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="list" className="flex items-center gap-2">
               <ListIcon className="w-4 h-4" />
               List View
@@ -320,14 +327,14 @@ const AdminBookings = () => {
               <CalendarIcon className="w-4 h-4" />
               Calendar View
             </TabsTrigger>
-            <TabsTrigger value="kanban" className="flex items-center gap-2">
+            {/* <TabsTrigger value="kanban" className="flex items-center gap-2">
               <LayoutDashboard className="w-4 h-4" />
               Board View
-            </TabsTrigger>
+            </TabsTrigger> */}
           </TabsList>
 
           {/* List View */}
-          <TabsContent value="list">
+          <TabsContent value="list" className="mt-3">
             <DataTable
               columns={columns}
               data={data}
@@ -348,13 +355,13 @@ const AdminBookings = () => {
 
           {/* Calendar View */}
           <TabsContent value="calendar">
-            <CalendarBookings bookings={data} search={search} onRefetch={fetchData} />
+            <CalendarBookings bookings={allBookings} search={search} onRefetch={fetchAll} />
           </TabsContent>
 
-          {/* Kanban View */}
-          <TabsContent value="kanban">
-            <KanbanBookings bookings={data} onRefetch={fetchData} />
-          </TabsContent>
+          {/* TO DO: Kanban View */}
+          {/* <TabsContent value="kanban">
+            <KanbanBookings bookings={allBookings} onRefetch={fetchAll} />
+          </TabsContent> */}
         </Tabs>
       </div>
 

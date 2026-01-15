@@ -97,17 +97,19 @@ export function DataTable<TData, TValue>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className="font-semibold cursor-pointer select-none whitespace-nowrap"
-                    onClick={header.column.getToggleSortingHandler()}
+                    className="font-semibold select-none whitespace-nowrap"
+                    onClick={header.column.getCanSort() ? header.column.getToggleSortingHandler() : undefined}
                   >
                     {header.isPlaceholder ? null : (
                       <div className="flex items-center">
                         {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{
-                          asc: <MoveUp className="ml-2 w-3 h-3" />,
-                          desc: <MoveDown className="ml-2 w-3 h-3" />,
-                          false: <ArrowUpDown className="ml-2 w-3 h-3" />,
-                        }[header.column.getIsSorted() as string] ?? null}
+                        {header.column.getCanSort() &&
+                          ({
+                            asc: <MoveUp className="ml-2 w-3 h-3" />,
+                            desc: <MoveDown className="ml-2 w-3 h-3" />,
+                            false: <ArrowUpDown className="ml-2 w-3 h-3" />,
+                          }[header.column.getIsSorted() as string] ??
+                            null)}
                       </div>
                     )}
                   </TableHead>
