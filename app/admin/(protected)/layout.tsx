@@ -12,7 +12,6 @@ const sidebarItems = [
   { name: "Testimonials", href: "/admin/testimonials", icon: MessageSquare },
   { name: "Bookings", href: "/admin/bookings", icon: Calendar },
   { name: "Blog Posts", href: "/admin/posts", icon: FileText },
-  { name: "Users", href: "/admin/users", icon: Users },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

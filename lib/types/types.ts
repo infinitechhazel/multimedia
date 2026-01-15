@@ -15,7 +15,7 @@ export interface Booking {
   approved?: boolean | null
 }
 
-// POST
+// POSTs
 export type Category = "all" | "wedding" | "portrait" | "event" | "product" | "studio"
 
 export interface Post {
@@ -30,4 +30,14 @@ export interface Post {
   image: string | File | null
   visible: boolean
   featured: boolean
+}
+
+// testimonials
+export type Testimonial = {
+  id?: number
+  name: string
+  title?: string | null
+  rating: number
+  message: string
+  approved?: boolean
 }
