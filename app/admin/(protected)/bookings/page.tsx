@@ -307,7 +307,7 @@ const AdminBookings = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold">Bookings</h1>
+          <h1 className="text-2xl text-accent sm:text-3xl font-serif font-bold">Bookings</h1>
           <p className="text-muted-foreground mt-1">Manage client bookings and appointments.</p>
         </div>
         <Button onClick={() => setIsAddOpen(true)} className="bg-gold hover:bg-gold/90 text-primary-foreground w-full sm:w-auto">

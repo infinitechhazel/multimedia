@@ -37,7 +37,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Mobile menu button */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-card border border-border rounded-lg"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-gold/90 border border-border rounded-lg"
       >
         {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
@@ -59,7 +59,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </Link>
             )}
 
-            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="hidden lg:flex p-2 hover:bg-muted rounded-lg transition-colors">
+            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="hidden lg:flex p-2 hover:bg-gold/90 bg-yellow-500 rounded-lg transition-colors">
               <ChevronLeft className={cn("w-5 h-5 transition-transform", !sidebarOpen && "rotate-180")} />
             </button>
           </div>
@@ -75,7 +75,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   onClick={() => setMobileMenuOpen(false)}
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all",
-                    isActive ? "bg-gold/10 text-gold border border-gold/30" : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                    isActive ? "bg-gold/10 text-gold border border-gold/30" : "text-muted-foreground hover:bg-gold/90 hover:text-foreground",
                   )}
                 >
                   <item.icon className="w-5 h-5 shrink-0" />
@@ -89,7 +89,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="p-4 border-t border-border space-y-2">
             <Link
               href="/"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-all"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted-foreground hover:bg-gold/90 hover:text-foreground transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
               {sidebarOpen && <span className="font-medium">Back to Site</span>}
