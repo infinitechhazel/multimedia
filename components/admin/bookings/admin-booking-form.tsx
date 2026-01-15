@@ -5,25 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import React, { useState, useEffect } from "react"
-<<<<<<< HEAD
-
-interface Booking {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  serviceType: string
-  date: string
-  time: string
-  guests: string
-  status: "pending" | "confirmed" | "completed" | "cancelled"
-  message: string
-  approved?: boolean
-}
-=======
 import { Booking } from "@/lib/types/types"
->>>>>>> fork/fork/main
 
 interface BookingFormDialogProps {
   open: boolean
@@ -34,11 +16,7 @@ interface BookingFormDialogProps {
 
 type BookingSlot = {
   date: string
-<<<<<<< HEAD
-  time: string[] 
-=======
   time: string[]
->>>>>>> fork/fork/main
 }
 
 const allTimes = ["09:00:00", "10:00:00", "11:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00"]
@@ -102,11 +80,7 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-<<<<<<< HEAD
-      <DialogContent className="max-w-2xl text-black">
-=======
       <DialogContent className="max-w-2xl text-black max-h-[90vh] overflow-y-auto scrollbar-hide">
->>>>>>> fork/fork/main
         <DialogHeader>
           <DialogTitle className="text-accent">{initialData ? "Edit Booking" : "Add Booking"}</DialogTitle>
           <DialogDescription>{initialData ? "Update booking information." : "Create a new booking entry."}</DialogDescription>
@@ -119,11 +93,7 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
             </div>
             <div>
               <Label className="text-black">Last Name</Label>
-<<<<<<< HEAD
-              <Input className="text-black" value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />
-=======
               <Input className="text-black" value={formData.lastName ?? ""} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />
->>>>>>> fork/fork/main
             </div>
             <div>
               <Label className="text-black">Email</Label>
@@ -131,9 +101,6 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
             </div>
             <div>
               <Label className="text-black">Phone</Label>
-<<<<<<< HEAD
-              <Input className="text-black" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
-=======
               <Input
                 className="text-black"
                 value={formData.phone ?? ""}
@@ -142,7 +109,6 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
                   setFormData({ ...formData, phone: onlyNumbers })
                 }}
               />
->>>>>>> fork/fork/main
             </div>
             <div>
               <Label className="text-black">Service</Label>
@@ -215,13 +181,8 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
             </div>
           </div>
           <div>
-<<<<<<< HEAD
-            <Label className="text-black">Message</Label>
-            <Textarea className="text-black" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
-=======
             <Label className="text-black">MessFage</Label>
             <Textarea className="text-black" value={formData.message ?? ""} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
->>>>>>> fork/fork/main
           </div>
         </div>
         <DialogFooter>

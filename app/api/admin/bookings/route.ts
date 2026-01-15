@@ -14,19 +14,6 @@ export async function GET(req: Request) {
     const pageSize = params.get("pageSize") || "10"
     const page = params.get("page") || "1"
 
-<<<<<<< HEAD
-    // Build query string to send to Laravel
-    const query = new URLSearchParams()
-    if (approved) query.append("approved", approved)
-    if (status) query.append("status", status)
-    if (search) query.append("search", search)
-    query.append("sortBy", sortBy)
-    query.append("sortOrder", sortOrder)
-    query.append("pageSize", pageSize)
-    query.append("page", page)
-
-=======
->>>>>>> fork/fork/main
     // Get the token from cookies (httpOnly)
     const cookieStore = await cookies()
     const token = cookieStore.get("admin_token")?.value
@@ -34,10 +21,6 @@ export async function GET(req: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
     }
 
-<<<<<<< HEAD
-    // Call your Laravel API
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/bookings?${query.toString()}`, {
-=======
     let apiUrl: string
 
     // If no query params at all → fetch all
@@ -59,7 +42,6 @@ export async function GET(req: Request) {
 
     // Call your Laravel API
     const res = await fetch(apiUrl, {
->>>>>>> fork/fork/main
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -109,11 +91,7 @@ export async function POST(req: NextRequest) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-<<<<<<< HEAD
-        Accept: "application/json", 
-=======
         Accept: "application/json",
->>>>>>> fork/fork/main
       },
       body: JSON.stringify(payload),
     })

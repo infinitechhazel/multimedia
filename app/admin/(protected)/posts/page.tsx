@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-
-const page = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
-
-export default page
-=======
 "use client"
 
 import { useEffect, useState } from "react"
@@ -274,4 +261,3 @@ export default function AdminPostsPage() {
     </div>
   )
 }
->>>>>>> fork/fork/main

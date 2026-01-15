@@ -11,11 +11,7 @@ interface BookingDeleteDialogProps {
 export function BookingDeleteDialog({ open, setOpen, onDelete }: BookingDeleteDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-<<<<<<< HEAD
-      <DialogContent className="text-black">
-=======
       <DialogContent className="text-black max-h-[90vh] overflow-y-auto scrollbar-hide">
->>>>>>> fork/fork/main
         <DialogHeader>
           <DialogTitle className="text-accent">Delete Booking</DialogTitle>
           <DialogDescription>Are you sure you want to delete this booking? This action cannot be undone.</DialogDescription>
