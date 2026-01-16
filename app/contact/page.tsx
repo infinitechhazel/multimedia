@@ -51,7 +51,7 @@ export default function BookingPage() {
           </motion.p>
 
           <motion.h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight" variants={itemVariants}>
-            Let's Create Something <span className="bg-linear-to-r from-amber-500 to-amber-400 bg-clip-text text-transparent">Beautiful</span>
+            Let&apos;s Create Something <span className="bg-linear-to-r from-amber-500 to-amber-400 bg-clip-text text-transparent">Beautiful</span>
           </motion.h1>
 
           <motion.p className="text-base md:text-lg text-white max-w-2xl mx-auto leading-relaxed" variants={itemVariants}>
@@ -267,7 +267,7 @@ export default function BookingPage() {
                 />
               </motion.div>
               <p className="text-sm text-gray-300">
-                Located in the heart of New York's creative district. Easy street parking and public transportation nearby.
+                Located in the heart of New York&apos;s creative district. Easy street parking and public transportation nearby.
               </p>
             </motion.div>
           </motion.div>

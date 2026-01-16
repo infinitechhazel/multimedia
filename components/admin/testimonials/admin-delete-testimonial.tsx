@@ -1,53 +1,37 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Testimonial } from "@/lib/types/types"
 
-type Props = {
+interface PostDeleteDialogProps {
   open: boolean
   setOpen: (open: boolean) => void
-  testimonial: Testimonial
-  onSuccess: () => void
+  onDelete: () => Promise<void>
+  loading?: boolean
 }
 
-export function TestimonialDeleteDialog({
-  open,
-  setOpen,
-  testimonial,
-  onSuccess,
-}: Props) {
+export const TestimonialDeleteDialog: React.FC<PostDeleteDialogProps> = ({ open, setOpen, onDelete, loading = false }) => {
   const handleDelete = async () => {
-    await fetch(`/api/testimonials/${testimonial.id}`, {
-      method: "DELETE",
-    })
-
-    setOpen(false)
-    onSuccess()
+    try {
+      await onDelete()
+      setOpen(false)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-md text-black">
+      <DialogContent className="max-w-md text-black max-h-[90vh] overflow-y-auto scrollbar-hide">
         <DialogHeader>
           <DialogTitle>Delete Testimonial</DialogTitle>
-          <DialogDescription>
-            Are you sure you want to delete this testimonial?
-            This action cannot be undone.
-          </DialogDescription>
+          <DialogDescription>Are you sure you want to delete this testimonial? This action cannot be undone.</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button variant="outline" onClick={() => setOpen(false)} disabled={loading}>
             Cancel
           </Button>
-          <Button variant="destructive" onClick={handleDelete}>
-            Delete
+          <Button variant="destructive" onClick={handleDelete} disabled={loading}>
+            {loading ? "Deleting..." : "Delete"}
           </Button>
         </DialogFooter>
       </DialogContent>

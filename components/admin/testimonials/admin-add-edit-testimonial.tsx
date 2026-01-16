@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -26,15 +19,10 @@ const emptyForm: Testimonial = {
   title: "",
   rating: 5,
   message: "",
+  approved: false,
 }
 
-export function TestimonialFormDialog({
-  open,
-  setOpen,
-  initialData,
-  onSubmit,
-  loading = false,
-}: Props) {
+export function TestimonialFormDialog({ open, setOpen, initialData, onSubmit, loading = false }: Props) {
   const [formData, setFormData] = useState<Testimonial>(emptyForm)
 
   useEffect(() => {
@@ -51,39 +39,30 @@ export function TestimonialFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-xl text-black">
+      <DialogContent className="max-w-xl text-black max-h-[90vh] overflow-y-auto scrollbar-hide">
         <DialogHeader>
-          <DialogTitle className="text-accent">
-            {initialData ? "Edit Testimonial" : "Add Testimonial"}
-          </DialogTitle>
-          <DialogDescription>
-            {initialData
-              ? "Update testimonial information."
-              : "Create a new testimonial."}
-          </DialogDescription>
+          <DialogTitle className="text-accent">{initialData ? "Edit Testimonial" : "Add Testimonial"}</DialogTitle>
+          <DialogDescription>{initialData ? "Update testimonial information." : "Create a new testimonial."}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
+          <div className="flex gap-2 items-center">
+            <Label className="text-black mt-2">Approved</Label>
+            <input
+              type="checkbox"
+              className="accent-amber-400"
+              checked={formData.approved ?? true}
+              onChange={(e) => setFormData({ ...formData, approved: e.target.checked })}
+            />
+          </div>
           <div>
             <Label>Name</Label>
-            <Input
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              disabled={loading}
-            />
+            <Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} disabled={loading} />
           </div>
 
           <div>
             <Label>Title</Label>
-            <Input
-              value={formData.title ?? ""}
-              onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
-              }
-              disabled={loading}
-            />
+            <Input value={formData.title ?? ""} onChange={(e) => setFormData({ ...formData, title: e.target.value })} disabled={loading} />
           </div>
 
           <div>
@@ -109,27 +88,14 @@ export function TestimonialFormDialog({
 
           <div>
             <Label>Message</Label>
-            <Textarea
-              value={formData.message}
-              onChange={(e) =>
-                setFormData({ ...formData, message: e.target.value })
-              }
-              disabled={loading}
-            />
+            <Textarea value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} disabled={loading} />
           </div>
         </div>
         <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-          <Button
-            variant="outline"
-            className="text-black w-full sm:w-auto"
-            onClick={() => setOpen(false)}
-          >
+          <Button variant="outline" className="text-black w-full sm:w-auto" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button
-            onClick={handleSubmit}
-            className="bg-gold hover:bg-gold/90 text-primary-foreground w-full sm:w-auto"
-          >
+          <Button onClick={handleSubmit} className="bg-gold hover:bg-gold/90 text-primary-foreground w-full sm:w-auto">
             {loading ? "Saving..." : initialData ? "Save" : "Add"}
           </Button>
         </DialogFooter>

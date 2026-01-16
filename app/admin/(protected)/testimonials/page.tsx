@@ -4,13 +4,8 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import { DataTable } from "@/components/admin/data-table"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Eye, MoreHorizontal, Pencil, Plus, Trash2 } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Eye, MoreHorizontal, Pencil, Plus, Star, Trash2 } from "lucide-react"
 
 import { TestimonialFormDialog } from "@/components/admin/testimonials/admin-add-edit-testimonial"
 import { TestimonialViewDialog } from "@/components/admin/testimonials/admin-view-testimonial"
@@ -25,10 +20,10 @@ export default function AdminTestimonialsPage() {
   const [search, setSearch] = useState("")
 
   // dialogs
-  const [isAddOpen, setIsAddOpen] = useState(true)
-  const [isEditOpen, setIsEditOpen] = useState(true)
-  const [isViewOpen, setIsViewOpen] = useState(true)
-  const [isDeleteOpen, setIsDeleteOpen] = useState(true)
+  const [isAddOpen, setIsAddOpen] = useState(false)
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [isViewOpen, setIsViewOpen] = useState(false)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
 
   // pagination
   const [pageIndex, setPageIndex] = useState(0)
@@ -38,11 +33,7 @@ export default function AdminTestimonialsPage() {
   const fetchTestimonials = async () => {
     setLoading(true)
     try {
-      const res = await fetch(
-        `/api/admin/testimonials?page=${
-          pageIndex + 1
-        }&perPage=${pageSize}&search=${search}`
-      )
+      const res = await fetch(`/api/admin/testimonials?page=${pageIndex + 1}&perPage=${pageSize}&search=${search}`)
       const json = await res.json()
 
       setTestimonials(Array.isArray(json.data) ? json.data : [])
@@ -144,16 +135,23 @@ export default function AdminTestimonialsPage() {
     {
       accessorKey: "rating",
       header: "Rating",
-      cell: ({ row }: any) => "⭐".repeat(row.getValue("rating")),
+      cell: ({ row }: any) => {
+        const rating = row.getValue("rating") || 0
+        return (
+          <div className="flex space-x-1">
+            {Array.from({ length: rating }).map((_, i) => (
+              <Star key={i} fill="#facc15" className="w-4 h-4 text-yellow-400" />
+            ))}
+          </div>
+        )
+      },
     },
+    { accessorKey: "approved", header: "Approved" },
     {
       accessorKey: "message",
       header: "Message",
       cell: ({ row }: any) => (
-        <span
-          className="block w-[300px] truncate"
-          title={row.getValue("message")}
-        >
+        <span className="block w-[300px] truncate" title={row.getValue("message")}>
           {row.getValue("message")}
         </span>
       ),
@@ -208,18 +206,11 @@ export default function AdminTestimonialsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-accent text-2xl sm:text-3xl font-serif font-bold">
-            Testimonials
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            Manage customer testimonials.
-          </p>
+          <h1 className="text-accent text-2xl sm:text-3xl font-serif font-bold">Testimonials</h1>
+          <p className="text-muted-foreground mt-1">Manage customer testimonials.</p>
         </div>
 
-        <Button
-          onClick={() => setIsAddOpen(true)}
-          className="bg-gold hover:bg-gold/90"
-        >
+        <Button onClick={() => setIsAddOpen(true)} className="bg-gold hover:bg-gold/90">
           <Plus className="w-4 h-4 mr-2" />
           Add Testimonial
         </Button>
@@ -237,32 +228,13 @@ export default function AdminTestimonialsPage() {
         onPageChange={setPageIndex}
       />
 
-      <TestimonialViewDialog
-        open={isViewOpen}
-        setOpen={setIsViewOpen}
-        testimonial={selectedItem}
-      />
+      <TestimonialViewDialog open={isViewOpen} setOpen={setIsViewOpen} testimonial={selectedItem} />
 
-      <TestimonialFormDialog
-        open={isAddOpen}
-        setOpen={setIsAddOpen}
-        onSubmit={handleAdd}
-        loading={loading}
-      />
+      <TestimonialFormDialog open={isAddOpen} setOpen={setIsAddOpen} onSubmit={handleAdd} loading={loading} />
 
-      <TestimonialFormDialog
-        open={isEditOpen}
-        setOpen={setIsEditOpen}
-        initialData={selectedItem}
-        onSubmit={handleEdit}
-        loading={loading}
-      />
+      <TestimonialFormDialog open={isEditOpen} setOpen={setIsEditOpen} initialData={selectedItem} onSubmit={handleEdit} loading={loading} />
 
-      <TestimonialDeleteDialog
-        open={isDeleteOpen}
-        setOpen={setIsDeleteOpen}
-        onDelete={handleDelete}
-      />
+      <TestimonialDeleteDialog open={isDeleteOpen} setOpen={setIsDeleteOpen} onDelete={handleDelete} />
     </div>
   )
 }

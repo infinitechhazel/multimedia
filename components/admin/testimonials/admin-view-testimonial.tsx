@@ -1,27 +1,17 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Testimonial } from "@/lib/types/types"
 
 type Props = {
   open: boolean
   setOpen: (open: boolean) => void
-  testimonial: Testimonial
+  testimonial: Testimonial | null
 }
 
-export function TestimonialViewDialog({
-  open,
-  setOpen,
-  testimonial,
-}: Props) {
+export function TestimonialViewDialog({ open, setOpen, testimonial }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-lg text-black">
+      <DialogContent className="max-w-lg text-black max-h-[90vh] overflow-y-auto scrollbar-hide">
         <DialogHeader>
           <DialogTitle className="text-accent">Testimonial</DialogTitle>
         </DialogHeader>
@@ -36,12 +26,9 @@ export function TestimonialViewDialog({
             </p>
           )}
           <p>
-            <strong>Rating:</strong>{" "}
-            {"⭐".repeat(testimonial?.rating)}
+            <strong>Rating:</strong> {"⭐".repeat(testimonial?.rating!)}
           </p>
-          <p className="whitespace-pre-wrap">
-            {testimonial?.message}
-          </p>
+          <p className="whitespace-pre-wrap">{testimonial?.message}</p>
         </div>
 
         <DialogFooter>
