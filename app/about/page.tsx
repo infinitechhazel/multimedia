@@ -171,7 +171,7 @@ export default function About() {
           >
             A Legacy of{" "}
             <motion.span
-              className="bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent"
+              className="bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-size-[200%_200%] bg-clip-text text-transparent"
               animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
               transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
             >
@@ -470,12 +470,12 @@ export default function About() {
       <section className="py-24 px-6 bg-black relative overflow-hidden border-t-2 border-amber-500">
         {/* Rotating aperture decoration */}
         <motion.div
-          className="absolute -right-32 -top-32 w-96 h-96 border-[40px] border-amber-500/20 rounded-full"
+          className="absolute -right-32 -top-32 w-96 h-96 border-40 border-amber-500/20 rounded-full"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute -left-32 -bottom-32 w-96 h-96 border-[40px] border-amber-500/10 rounded-full"
+          className="absolute -left-32 -bottom-32 w-96 h-96 border-40 border-amber-500/10 rounded-full"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
         />
@@ -500,7 +500,7 @@ export default function About() {
             className="text-5xl md:text-6xl font-serif font-light text-white mb-6"
           >
             Ready to Create Something{" "}
-            <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent font-bold">Beautiful</span>?
+            <span className="bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent font-bold">Beautiful</span>?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -521,7 +521,7 @@ export default function About() {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 font-bold shadow-xl shadow-amber-500/30 border-2 border-black"
+              className="bg-linear-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 font-bold shadow-xl shadow-amber-500/30 border-2 border-black"
             >
               <Link href="/contact">
                 <Camera className="w-5 h-5 mr-2" />

@@ -1,7 +1,7 @@
 "use client"
 import FloatingParticles from "@/components/animated-golden-particles"
 import { Button } from "@/components/ui/button"
-import { Aperture, Camera, Mail, Plus } from "lucide-react"
+import { Aperture, Camera, Plus } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import Link from "next/link"
 import { useState } from "react"
@@ -81,7 +81,7 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <div className="min-h-screen pt-20 bg-gradient-to-br from-black via-black to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen pt-20 bg-linear-to-br from-black via-black to-slate-900 relative overflow-hidden">
       <FloatingParticles />
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -138,7 +138,7 @@ const FAQ = () => {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="h-[1px] w-48 mx-auto mt-12 gold-line"
+              className="h-px w-48 mx-auto mt-12 gold-line"
             />
           </div>
         </div>
@@ -162,7 +162,7 @@ const FAQ = () => {
             duration: 12,
             ease: "easeInOut",
           }}
-          className="absolute top-1/2 left-1/2 w-[480px] h-[480px] bg-gradient-to-br from-amber-500/30 via-amber-600/20 to-transparent rounded-full blur-3xl pointer-events-none"
+          className="absolute top-1/2 left-1/2 w-[480px] h-[480px] bg-linear-to-br from-amber-500/30 via-amber-600/20 to-transparent rounded-full blur-3xl pointer-events-none"
         />
 
         {/* Section-level fade-in animation */}
@@ -194,7 +194,7 @@ const FAQ = () => {
                     {/* Shimmer effect on hover */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-500/95 to-transparent"
+                        className="absolute inset-0 bg-linear-to-r from-transparent via-amber-500/95 to-transparent"
                         animate={{
                           x: ["-100%", "200%"],
                         }}
@@ -212,7 +212,7 @@ const FAQ = () => {
                           {faq.question}
                         </h3>
 
-                        <motion.div animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="flex-shrink-0">
+                        <motion.div animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="shrink-0">
                           <Plus className="w-6 h-6 text-amber-500" />
                         </motion.div>
                       </div>
@@ -231,7 +231,7 @@ const FAQ = () => {
                               initial={{ scaleX: 0 }}
                               animate={{ scaleX: 1 }}
                               transition={{ duration: 0.5, delay: 0.1 }}
-                              className="h-[2px] w-full my-5 gold-line origin-left"
+                              className="h-0.5 w-full my-5 gold-line origin-left"
                             />
 
                             <motion.p
@@ -258,12 +258,12 @@ const FAQ = () => {
       <section className="py-24 px-6 bg-black relative overflow-hidden border-t-2 border-amber-500">
         {/* Rotating aperture decoration */}
         <motion.div
-          className="absolute -right-32 -top-32 w-96 h-96 border-[40px] border-amber-500/20 rounded-full"
+          className="absolute -right-32 -top-32 w-96 h-96 border-40 border-amber-500/20 rounded-full"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute -left-32 -bottom-32 w-96 h-96 border-[40px] border-amber-500/10 rounded-full"
+          className="absolute -left-32 -bottom-32 w-96 h-96 border-40 border-amber-500/10 rounded-full"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
         />
@@ -296,7 +296,7 @@ const FAQ = () => {
             transition={{ delay: 0.2 }}
             className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            We're here to help you capture life's most precious moments.
+            We&apos;re here to help you capture life&apos;s most precious moments.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -308,7 +308,7 @@ const FAQ = () => {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 font-bold shadow-xl shadow-amber-500/30 border-2 border-black"
+              className="bg-linear-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 font-bold shadow-xl shadow-amber-500/30 border-2 border-black"
             >
               <Link href="/contact">
                 <Camera className="w-5 h-5 mr-2" />

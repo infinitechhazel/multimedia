@@ -160,7 +160,7 @@ export default function Portfolio() {
         <div className="absolute top-0 left-0 right-0 h-16 bg-black border-b-2 border-amber-500 flex items-center overflow-hidden">
           <motion.div className="flex" animate={{ x: [0, -200] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }}>
             {[...Array(50)].map((_, i) => (
-              <div key={i} className="w-10 h-7 bg-gradient-to-b from-amber-500 to-amber-600 mx-3 rounded-sm shadow-lg shadow-amber-500/30" />
+              <div key={i} className="w-10 h-7 bg-linear-to-b from-amber-500 to-amber-600 mx-3 rounded-sm shadow-lg shadow-amber-500/30" />
             ))}
           </motion.div>
         </div>
@@ -204,7 +204,7 @@ export default function Portfolio() {
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-white px-12 py-6">
                 Our{" "}
-                <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent font-bold">Portfolio</span>
+                <span className="bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent font-bold">Portfolio</span>
               </h1>
             </div>
 
@@ -231,7 +231,7 @@ export default function Portfolio() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1.5, delay: 1 }}
-              className="h-1 w-40 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto"
+              className="h-1 w-40 bg-linear-to-r from-transparent via-amber-500 to-transparent mx-auto"
             />
           </motion.div>
         </div>
@@ -247,7 +247,7 @@ export default function Portfolio() {
                 onClick={() => setSelectedCategory(category.value)}
                 className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all duration-300 relative overflow-hidden ${
                   selectedCategory === category.value
-                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-2xl shadow-amber-500/50 scale-110"
+                    ? "bg-linear-to-r from-amber-500 to-amber-600 text-black shadow-2xl shadow-amber-500/50 scale-110"
                     : "bg-black text-amber-500 hover:bg-amber-500/10 border-2 border-amber-500/30"
                 }`}
                 initial={{ opacity: 0, y: 20 }}
@@ -295,9 +295,9 @@ export default function Portfolio() {
                   whileHover={{ y: -10 }}
                 >
                   {/* Gold frame with shadow */}
-                  <div className="bg-gradient-to-br from-amber-500/20 to-amber-600/20 p-1 rounded-lg hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-500 border-2 border-amber-500/30">
+                  <div className="bg-linear-to-br from-amber-500/20 to-amber-600/20 p-1 rounded-lg hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-500 border-2 border-amber-500/30">
                     <div className="bg-black p-4 pb-20 rounded-lg relative overflow-hidden">
-                      <div className="relative aspect-[4/5] overflow-hidden rounded">
+                      <div className="relative aspect-4/5 overflow-hidden rounded">
                         <Image
                           src={image.src || "/placeholder.svg"}
                           alt={image.alt}
@@ -307,11 +307,11 @@ export default function Portfolio() {
                         />
 
                         {/* Gold overlay gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-black/20 opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
 
                         {/* Camera shutter effect - iris close */}
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-br from-amber-500 to-amber-600"
+                          className="absolute inset-0 bg-linear-to-br from-amber-500 to-amber-600"
                           initial={{ clipPath: "circle(0% at 50% 50%)" }}
                           animate={{
                             clipPath:
@@ -378,7 +378,7 @@ export default function Portfolio() {
 
                           {/* Camera info badge */}
                           <motion.div
-                            className="absolute top-4 left-4 bg-gradient-to-r from-amber-500 to-amber-600 text-black px-3 py-1.5 rounded-full text-xs font-bold shadow-xl flex items-center gap-2"
+                            className="absolute top-4 left-4 bg-linear-to-r from-amber-500 to-amber-600 text-black px-3 py-1.5 rounded-full text-xs font-bold shadow-xl flex items-center gap-2"
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ delay: 0.6 }}
@@ -446,12 +446,12 @@ export default function Portfolio() {
       <section className="py-24 px-6 bg-black relative overflow-hidden border-t-2 border-amber-500">
         {/* Rotating aperture decoration */}
         <motion.div
-          className="absolute -right-32 -top-32 w-96 h-96 border-[40px] border-amber-500/20 rounded-full"
+          className="absolute -right-32 -top-32 w-96 h-96 border-40 border-amber-500/20 rounded-full"
           animate={{ rotate: 360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute -left-32 -bottom-32 w-96 h-96 border-[40px] border-amber-500/10 rounded-full"
+          className="absolute -left-32 -bottom-32 w-96 h-96 border-40 border-amber-500/10 rounded-full"
           animate={{ rotate: -360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
         />
@@ -476,7 +476,7 @@ export default function Portfolio() {
             className="text-5xl md:text-6xl font-serif font-light text-white mb-6"
           >
             Ready to Create Your{" "}
-            <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent font-bold">Vision</span>?
+            <span className="bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent font-bold">Vision</span>?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -485,7 +485,7 @@ export default function Portfolio() {
             transition={{ delay: 0.2 }}
             className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            Let's discuss your project and bring your creative vision to life with stunning photography.
+            Let&apos;s discuss your project and bring your creative vision to life with stunning photography.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -497,7 +497,7 @@ export default function Portfolio() {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 font-bold shadow-xl shadow-amber-500/30 border-2 border-black"
+              className="bg-linear-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 font-bold shadow-xl shadow-amber-500/30 border-2 border-black"
             >
               <Link href="/contact">
                 <Camera className="w-5 h-5 mr-2" />

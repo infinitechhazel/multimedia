@@ -8,15 +8,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
               STUDIO
             </h3>
-            <p className="text-sm opacity-80">Capturing life's precious moments with artistic excellence and professional dedication.</p>
+            <p className="text-sm opacity-80">Capturing life&apos;s precious moments with artistic excellence and professional dedication.</p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
+            <h4 className="text-lg font-semibold bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
               Quick Links
             </h4>
             <ul className="space-y-2">
@@ -50,7 +50,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
+            <h4 className="text-lg font-semibold bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
               Contact
             </h4>
             <ul className="space-y-3">
@@ -76,7 +76,7 @@ const Footer = () => {
               </li>
             </ul>
             <div className="pt-2 space-y-1">
-              <h4 className="text-sm font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
+              <h4 className="text-sm font-semibold bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
                 Operating Hours
               </h4>
               <p className="text-sm">Mon - Fri: 9AM - 6PM</p>
@@ -86,7 +86,7 @@ const Footer = () => {
 
           {/* Social & Policies */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
+            <h4 className="text-lg font-semibold bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
               Follow Us
             </h4>
             <div className="flex gap-4">
@@ -101,7 +101,7 @@ const Footer = () => {
               </a>
             </div>
             <div className="pt-4 space-y-2">
-              <h4 className="text-sm font-semibold bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
+              <h4 className="text-sm font-semibold bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
                 Policies
               </h4>
               <ul className="space-y-1">

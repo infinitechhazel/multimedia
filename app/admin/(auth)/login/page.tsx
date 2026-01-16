@@ -45,10 +45,11 @@ const AdminLogin = () => {
 
       // middleware + cookie will handle auth
       navigate.push("/admin/dashboard")
-    } catch (error: any) {
+    } catch (e) {
       toast.error("Login failed", {
-        description: error.message,
+        description: "Please check your credentials and try again.",
       })
+      console.log(e)
     } finally {
       setIsLoading(false)
     }

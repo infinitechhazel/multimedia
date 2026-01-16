@@ -1,16 +1,12 @@
 "use client"
-import { useState } from "react"
 import Link from "next/link"
 import { motion } from "motion/react"
 import FloatingParticles from "@/components/animated-golden-particles"
 import { useInView } from "react-intersection-observer"
-import { PhotographySuccessAnimation } from "@/components/successful-booking-animation"
 import BookingForm from "@/components/booking/form/booking-form"
 
 export default function BookingPage() {
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
+  const { ref } = useInView({ triggerOnce: true, threshold: 0.1 })
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -126,8 +122,8 @@ export default function BookingPage() {
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
               style={{ backgroundColor: "rgba(212,165,116,0.6)" }}
             />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-16 bg-gradient-to-b from-transparent via-amber-400/40 to-transparent" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-px bg-linear-to-r from-transparent via-amber-400/40 to-transparent" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-16 bg-linear-to-b from-transparent via-amber-400/40 to-transparent" />
           </motion.div>
 
           {/* Flare bottom-left */}
@@ -147,8 +143,8 @@ export default function BookingPage() {
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
               style={{ backgroundColor: "rgba(212,165,116,0.6)" }}
             />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-12 bg-gradient-to-b from-transparent via-amber-400/40 to-transparent" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-px bg-linear-to-r from-transparent via-amber-400/40 to-transparent" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-12 bg-linear-to-b from-transparent via-amber-400/40 to-transparent" />
           </motion.div>
 
           {/* Booking Form */}
@@ -169,7 +165,7 @@ export default function BookingPage() {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="h-1 w-24 mx-auto bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-full origin-left"
+              className="h-1 w-24 mx-auto bg-linear-to-r from-yellow-600 to-yellow-500 rounded-full origin-left"
             />
           </motion.div>
 

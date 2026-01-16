@@ -1,14 +1,12 @@
 "use client"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Calendar, User, ArrowRight, Camera, Aperture, CameraIcon, Focus, ZoomIn, Film } from "lucide-react"
+import { Calendar, User, Camera, Aperture, CameraIcon, Focus, ZoomIn, Film } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import FloatingParticles from "@/components/animated-golden-particles"
 import { Post } from "@/lib/types/types"
 import ScrollZoomCard from "@/components/blog/scroll-zoom-card"
-import Marquee from "react-fast-marquee"
 
 type Category = "all" | "wedding" | "portrait" | "event" | "product" | "studio"
 
@@ -53,10 +51,6 @@ const flashVariants = {
   visible: { opacity: [0, 1, 0], transition: { duration: 0.5, times: [0, 0.5, 1] } },
 }
 
-const focusRing = {
-  initial: { scale: 0.8, opacity: 0 },
-  animate: { scale: [0.8, 1.2, 1], opacity: [0, 1, 0], transition: { duration: 2, repeat: Infinity, repeatDelay: 3 } },
-}
 
 export default function Blog() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -130,7 +124,7 @@ export default function Blog() {
           <FloatingParticles count={20} />
 
           <motion.p
-            className="text-sm uppercase tracking-widest bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent font-semibold"
+            className="text-sm uppercase tracking-widest bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-size-[200%_200%] bg-clip-text text-transparent font-semibold"
             variants={fadeInUp}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
@@ -143,7 +137,7 @@ export default function Blog() {
           >
             The Power of{" "}
             <motion.span
-              className="bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent"
+              className="bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-size-[200%_200%] bg-clip-text text-transparent"
               animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
               transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
             >

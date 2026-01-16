@@ -63,7 +63,7 @@ const TestimonialsForm = () => {
 
       if (!res.ok) {
         if (data?.errors) {
-          toast.error(data?.message || "Failed to submit testimonial.", {
+          toast.error("Failed to submit testimonial.", {
             position: "top-right",
             duration: 4000,
           })

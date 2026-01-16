@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronRight, Sparkles, Award, Camera } from "lucide-react"
+import { ChevronRight, Sparkles, Camera } from "lucide-react"
 import { useRef } from "react"
 import { CountingNumber } from "../ui/shadcn-io/counting-number"
 import { useIsMobile, useIsTablet } from "@/hooks/use-device"
@@ -139,7 +139,7 @@ export default function AboutSection() {
       <FloatingParticles count={50} />
 
       {/* Film perforations - bright orange */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-black/95 to-transparent z-20">
+      <div className="absolute left-0 top-0 bottom-0 w-16 bg-linear-to-r from-black/95 to-transparent z-20">
         <div className="h-full flex flex-col justify-around items-center py-8">
           {[...Array(isMobile ? 40 : 20)].map((_, i) => (
             <motion.div
@@ -157,7 +157,7 @@ export default function AboutSection() {
           ))}
         </div>
       </div>
-      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-black/95 to-transparent z-20">
+      <div className="absolute right-0 top-0 bottom-0 w-16 bg-linear-to-l from-black/95 to-transparent z-20">
         <div className="h-full flex flex-col justify-around items-center py-8">
           {[...Array(isMobile ? 40 : 20)].map((_, i) => (
             <motion.div
@@ -238,7 +238,7 @@ export default function AboutSection() {
             <ApertureReveal delay={0.3}>
               <div className="relative max-w-sm mx-auto">
                 <motion.div
-                  className="relative aspect-[4/5] h-[320px] md:h-[420px] lg:h-[500px] overflow-hidden border-4 shadow-2xl"
+                  className="relative aspect-4/5 h-80 md:h-[420px] lg:h-[500px] overflow-hidden border-4 shadow-2xl"
                   style={{
                     borderColor: "rgba(255, 149, 0, 0.5)",
                     boxShadow: "0 25px 70px rgba(255, 149, 0, 0.4)",
@@ -375,7 +375,7 @@ export default function AboutSection() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-gray-300 text-xl leading-relaxed"
             >
-              Luminous Studio is dedicated to capturing life's precious moments with artistry and precision. Our team of experienced photographers
+              Luminous Studio is dedicated to capturing life&apos;s precious moments with artistry and precision. Our team of experienced photographers
               brings a unique blend of technical expertise and creative vision to every project.
             </motion.p>
 
@@ -403,7 +403,7 @@ export default function AboutSection() {
                   whileHover={{ x: 12 }}
                 >
                   <motion.div
-                    className="w-14 h-14 border-2 flex items-center justify-center shadow-lg flex-shrink-0"
+                    className="w-14 h-14 border-2 flex items-center justify-center shadow-lg shrink-0"
                     style={{
                       background: "rgba(255, 149, 0, 0.1)",
                       borderColor: "rgba(255, 149, 0, 0.4)",

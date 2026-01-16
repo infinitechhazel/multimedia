@@ -428,7 +428,7 @@ export default function BookingForm() {
       </div>
 
       {/* Form */}
-      <div className="bg-gradient-to-br from-slate-900/30 via-black to-black border border-amber-500/30 rounded-lg p-8 md:p-12 backdrop-blur-sm shadow-2xl">
+      <div className="bg-linear-to-br from-slate-900/30 via-black to-black border border-amber-500/30 rounded-lg p-8 md:p-12 backdrop-blur-sm shadow-2xl">
         {/* Focus Ring Animation */}
         <div className="absolute inset-0 border-4 border-[#d4a574]/50 rounded-lg pointer-events-none" />
         <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
@@ -438,7 +438,7 @@ export default function BookingForm() {
               <div>
                 <h2 className="text-3xl font-serif font-bold mb-6">Your Contact Information</h2>
                 <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mb-8" />
-                <p className="text-gray-300 mb-8">Let's start with your details.</p>
+                <p className="text-gray-300 mb-8">Let&apos;s start with your details.</p>
               </div>
 
               <div className="flex flex-col md:flex-row gap-6">
@@ -596,7 +596,7 @@ export default function BookingForm() {
             <div className="space-y-6 animate-fadeIn">
               <div>
                 <h2 className="text-3xl font-serif font-bold mb-6">Choose Your Date & Time</h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-yellow-600 to-yellow-500 mb-8" />
+                <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mb-8" />
                 <p className="text-gray-300 mb-8">Select your preferred session time from our available slots.</p>
               </div>
 
@@ -607,7 +607,7 @@ export default function BookingForm() {
                     <Button onClick={handlePrevMonth} className="p-2 hover:bg-gold/10 rounded-lg transition-colors duration-200">
                       <ChevronLeft className="w-6 h-6 text-gold" />
                     </Button>
-                    <h2 className="text-center md:text-2xl bg-gradient-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-[length:200%_200%] bg-clip-text text-transparent">
+                    <h2 className="text-center md:text-2xl bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-size-[200%_200%] bg-clip-text text-transparent">
                       {monthName}
                     </h2>
                     <Button onClick={handleNextMonth} className="p-2 hover:bg-gold/10 rounded-lg transition-colors duration-200">
@@ -780,7 +780,7 @@ export default function BookingForm() {
             <motion.div className="space-y-6" variants={containerVariants} initial="hidden" animate="visible">
               <motion.div variants={itemVariants}>
                 <h2 className="text-3xl font-serif font-bold mb-6">Review Your Booking</h2>
-                <motion.div variants={itemVariants} className="h-1 w-24 bg-gradient-to-r from-yellow-600 to-yellow-500 mb-8" />
+                <motion.div variants={itemVariants} className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mb-8" />
                 <p className="mb-8 text-gray-300">Please review your information before submitting.</p>
               </motion.div>
 
@@ -867,7 +867,7 @@ export default function BookingForm() {
                 whileTap={{ scale: 0.98 }}
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="flex-1 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 shadow-xl shadow-amber-500/30 font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 active:scale-95"
+                className="flex-1 py-2 bg-linear-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 shadow-xl shadow-amber-500/30 font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 active:scale-95"
               >
                 {isMobile ? "Submit" : "Submit Booking"}
               </motion.button>
@@ -877,7 +877,7 @@ export default function BookingForm() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleNext}
-                className="flex-1 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 shadow-xl shadow-amber-500/30 font-semibold text-lg rounded-lg hover:shadow-lg  transition-all duration-200  active:scale-95"
+                className="flex-1 py-2 bg-linear-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 shadow-xl shadow-amber-500/30 font-semibold text-lg rounded-lg hover:shadow-lg  transition-all duration-200  active:scale-95"
               >
                 Next
               </motion.button>

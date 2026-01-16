@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Plus, MoreHorizontal, Pencil, Trash2, Eye, ListIcon, CalendarIcon, Square, LayoutDashboard } from "lucide-react"
+import { Plus, MoreHorizontal, Pencil, Trash2, Eye, ListIcon, CalendarIcon } from "lucide-react"
 import { toast } from "sonner"
 import { DataTable } from "@/components/admin/data-table"
 import { BookingViewDialog } from "@/components/admin/bookings/admin-view-booking"
@@ -12,7 +12,6 @@ import { BookingFormDialog } from "@/components/admin/bookings/admin-booking-for
 import { BookingDeleteDialog } from "@/components/admin/bookings/admin-delete-booking"
 import { CalendarBookings } from "@/components/admin/bookings/calendar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { KanbanBookings } from "@/components/admin/bookings/kanban"
 import { Booking } from "@/lib/types/types"
 
 const AdminBookings = () => {
@@ -193,8 +192,6 @@ const AdminBookings = () => {
       const res = await fetch(`/api/admin/bookings/${selectedItem.id}`, {
         method: "DELETE",
       })
-
-      const dataJson = await res.json()
 
       if (!res.ok) {
         toast.error("Error", { description: "Something went wrong", position: "top-right" })

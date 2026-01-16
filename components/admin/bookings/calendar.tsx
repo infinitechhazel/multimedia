@@ -122,7 +122,7 @@ export function CalendarBookings({
       const dataJson = await res.json();
 
       if (!res.ok) {
-        toast.error(dataJson.message || "Failed to update booking", {
+        toast.error("Failed to update booking", {
           position: "top-right",
         });
         return;
