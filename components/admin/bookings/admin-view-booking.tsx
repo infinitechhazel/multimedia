@@ -2,6 +2,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Booking } from "@/lib/types/types"
+import { formatMonthDayYear } from "@/lib/utils"
 
 interface BookingViewDialogProps {
   open: boolean
@@ -14,23 +15,26 @@ export function BookingViewDialog({ open, setOpen, booking }: BookingViewDialogP
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="text-black max-h-[90vh] overflow-y-auto scrollbar-hide">
+      <DialogContent className="w-full max-w-2xl text-black max-h-[90vh] overflow-y-auto scrollbar-hide px-4 sm:px-6">
         <DialogHeader>
           <DialogTitle className="text-accent">Booking Details</DialogTitle>
         </DialogHeader>
+
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <p className="text-sm text-muted-foreground">Client</p>
-              <p className="font-medium">{booking.firstName} {booking.lastName}</p>
+              <p className="font-medium">
+                {booking.firstName} {booking.lastName}
+              </p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Email</p>
-              <p className="font-medium">{booking.email}</p>
+              <p className="font-medium break-words">{booking.email}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Phone</p>
-              <p className="font-medium">{booking.phone}</p>
+              <p className="font-medium break-words">{booking.phone}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Service</p>
@@ -38,7 +42,7 @@ export function BookingViewDialog({ open, setOpen, booking }: BookingViewDialogP
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Date</p>
-              <p className="font-medium">{booking.date}</p>
+              <p className="font-medium">{formatMonthDayYear(booking.date)}</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Time</p>
@@ -50,13 +54,22 @@ export function BookingViewDialog({ open, setOpen, booking }: BookingViewDialogP
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Status</p>
-              <Badge>{booking.status}</Badge>
+              {(() => {
+                const statusClasses: Record<string, string> = {
+                  pending: "bg-yellow-500/10 text-yellow-700",
+                  confirmed: "bg-blue-500/10 text-blue-700",
+                  completed: "bg-green-500/10 text-green-700",
+                  cancelled: "bg-red-500/10 text-red-700",
+                }
+                return <Badge className={statusClasses[booking.status] || ""}>{booking.status}</Badge>
+              })()}
             </div>
           </div>
+
           {booking.message && (
             <div>
               <p className="text-sm text-muted-foreground">Message</p>
-              <p className="font-medium">{booking.message}</p>
+              <p className="font-medium break-words">{booking.message}</p>
             </div>
           )}
         </div>

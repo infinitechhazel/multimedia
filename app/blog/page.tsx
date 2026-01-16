@@ -1,6 +1,6 @@
 "use client"
 import { Card } from "@/components/ui/card"
-import { Calendar, User, Camera, Aperture, CameraIcon, Focus, ZoomIn, Film } from "lucide-react"
+import { Calendar, User, Camera, Aperture, CameraIcon, Focus, ZoomIn, Film, Sparkles } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -30,27 +30,10 @@ function getImageSrc(image: string | File | null): string | undefined {
   }
 }
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0 },
-}
-
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
 }
-
-// Shutter animation
-const shutterVariants = {
-  closed: { clipPath: "polygon(0 50%, 100% 50%, 100% 50%, 0 50%)" },
-  open: { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" },
-}
-
-const flashVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: [0, 1, 0], transition: { duration: 0.5, times: [0, 0.5, 1] } },
-}
-
 
 export default function Blog() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -84,75 +67,87 @@ export default function Blog() {
     <div className="min-h-screen pt-20 bg-linear-to-br from-[#1a0f0a] via-[#2d1810] to-[#4a2818] relative overflow-hidden">
       <FloatingParticles count={20} />
 
-      {/* Hero Section */}
-      <motion.section className="pt-20 pb-20 px-6 relative overflow-hidden" initial="hidden" animate="visible" variants={staggerContainer}>
-        <motion.div
-          className="absolute inset-0 bg-black z-10 pointer-events-none"
-          initial="closed"
-          animate="open"
-          variants={shutterVariants}
-          transition={{ duration: 1, ease: "easeInOut" }}
-        />
-
-        {/* Flash Effect */}
-        <motion.div className="absolute inset-0 bg-amber-200 z-20 pointer-events-none" variants={flashVariants} initial="hidden" animate="visible" />
-
-        {/* Floating Camera Icons */}
-        <motion.div
-          className="absolute top-20 left-10 text-[#d4a574]/20"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 10, 0],
-          }}
-          transition={{ duration: 4, repeat: Infinity }}
-        >
-          <Camera size={60} />
-        </motion.div>
-        <motion.div
-          className="absolute top-40 right-20 text-[#d4a574]/20"
-          animate={{
-            y: [0, 20, 0],
-            rotate: [0, -10, 0],
-          }}
-          transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-        >
-          <Aperture size={80} />
-        </motion.div>
-
-        <div className="max-w-4xl mx-auto text-center space-y-6 relative z-30">
-          {/* Animated gold particles */}
-          <FloatingParticles count={20} />
-
-          <motion.p
-            className="text-sm uppercase tracking-widest bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-size-[200%_200%] bg-clip-text text-transparent font-semibold"
-            variants={fadeInUp}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            Our Blog
-          </motion.p>
-          <motion.h1
-            className="text-4xl md:text-6xl font-bold font-serif text-white leading-tight"
-            variants={fadeInUp}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            The Power of{" "}
-            <motion.span
-              className="bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-size-[200%_200%] bg-clip-text text-transparent"
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-            >
-              Visual Storytelling
-            </motion.span>
-          </motion.h1>
-          <motion.p
-            className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
-            variants={fadeInUp}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            Discover how visual narratives can transform your photography and engage your audience.
-          </motion.p>
+      {/* Hero Section with Film Strip Effect */}
+      <section className="pt-32 pb-16 px-6 relative overflow-hidden">
+        {/* Animated film perforations - gold */}
+        <div className="absolute top-0 left-0 right-0 h-16 bg-black border-b-2 border-amber-500 flex items-center overflow-hidden">
+          <motion.div className="flex" animate={{ x: [0, -200] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }}>
+            {[...Array(50)].map((_, i) => (
+              <div key={i} className="w-10 h-7 bg-gradient-to-b from-amber-500 to-amber-600 mx-3 rounded-sm shadow-lg shadow-amber-500/30" />
+            ))}
+          </motion.div>
         </div>
-      </motion.section>
+
+        <div className="max-w-5xl mx-auto text-center pt-8 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            {/* Camera viewfinder decoration */}
+            <div className="inline-block relative mb-8">
+              <motion.div
+                className="absolute -top-6 -left-6 w-12 h-12 border-l-3 border-t-3 border-amber-500"
+                initial={{ opacity: 0, x: -10, y: -10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.3, type: "spring" }}
+              >
+                <div className="absolute top-0 left-0 w-3 h-3 bg-amber-500 rounded-full" />
+              </motion.div>
+              <motion.div
+                className="absolute -top-6 -right-6 w-12 h-12 border-r-3 border-t-3 border-amber-500"
+                initial={{ opacity: 0, x: 10, y: -10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.4, type: "spring" }}
+              >
+                <div className="absolute top-0 right-0 w-3 h-3 bg-amber-500 rounded-full" />
+              </motion.div>
+              <motion.div
+                className="absolute -bottom-6 -left-6 w-12 h-12 border-l-3 border-b-3 border-amber-500"
+                initial={{ opacity: 0, x: -10, y: 10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.5, type: "spring" }}
+              >
+                <div className="absolute bottom-0 left-0 w-3 h-3 bg-amber-500 rounded-full" />
+              </motion.div>
+              <motion.div
+                className="absolute -bottom-6 -right-6 w-12 h-12 border-r-3 border-b-3 border-amber-500"
+                initial={{ opacity: 0, x: 10, y: 10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.6, type: "spring" }}
+              >
+                <div className="absolute bottom-0 right-0 w-3 h-3 bg-amber-500 rounded-full" />
+              </motion.div>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-white px-12 py-6">
+                Our <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent font-bold">Blog</span>
+              </h1>
+            </div>
+
+            {/* Sparkle decorations */}
+            <motion.div
+              className="flex items-center justify-center gap-4 mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+            >
+              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}>
+                <Sparkles className="w-6 h-6 text-amber-500" />
+              </motion.div>
+              <p className="text-lg text-gray-300 max-w-2xl">
+                Discover how visual narratives can transform your photography and engage your audience.
+              </p>
+              <motion.div animate={{ rotate: [360, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}>
+                <Sparkles className="w-6 h-6 text-amber-500" />
+              </motion.div>
+            </motion.div>
+
+            {/* Decorative line */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.5, delay: 1 }}
+              className="h-1 w-40 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto"
+            />
+          </motion.div>
+        </div>
+      </section>
 
       {/* Featured Posts */}
       <div className="my-4">

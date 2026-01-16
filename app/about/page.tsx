@@ -53,7 +53,7 @@ const teamMembers = [
     specialty: "Events & Commercial",
     image: "/professional-photographer.png",
     bio: "Unmatched energy and attention to detail in every project.",
-     socials: {
+    socials: {
       facebook: "https://www.facebook.com/alexandra.sterling.photography",
       instagram: "https://www.instagram.com/alexandra.sterling",
       linkedin: "https://www.linkedin.com/in/alexandra-sterling",
@@ -66,7 +66,7 @@ const teamMembers = [
     specialty: "Studio Portraits & Fashion",
     image: "/professional-latina-woman-photographer-portrait.jpg",
     bio: "High-end portrait and fashion, merging precision with creative expression.",
-     socials: {
+    socials: {
       facebook: "https://www.facebook.com/alexandra.sterling.photography",
       instagram: "https://www.instagram.com/alexandra.sterling",
       linkedin: "https://www.linkedin.com/in/alexandra-sterling",
@@ -79,7 +79,7 @@ const teamMembers = [
     specialty: "Product & E-commerce",
     image: "/professional-asian-man-photographer-portrait.jpg",
     bio: "Refined, technical mindset that elevates brands.",
-     socials: {
+    socials: {
       facebook: "https://www.facebook.com/alexandra.sterling.photography",
       instagram: "https://www.instagram.com/alexandra.sterling",
       linkedin: "https://www.linkedin.com/in/alexandra-sterling",
@@ -109,85 +109,94 @@ const scaleIn = {
 export default function About() {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null)
 
-  const heroRef = useRef(null)
   const storyRef = useRef(null)
-
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: heroRef,
-    offset: ["start end", "end start"],
-  })
-
-  const { scrollYProgress: storyProgress } = useScroll({
-    target: storyRef,
-    offset: ["start end", "end start"],
-  })
-
-  const heroY = useTransform(heroProgress, [0, 1], ["0%", "30%"])
-  const storyY = useTransform(storyProgress, [0, 1], ["-20%", "20%"])
 
   return (
     <div className="min-h-screen pt-16 bg-black">
       {/* Animated golden particles */}
       <FloatingParticles />
 
-      {/* Hero Section */}
-      <motion.section
-        ref={heroRef}
-        className="pt-16 pb-12 px-4 relative overflow-hidden"
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
-      >
-        <motion.div
-          className="absolute inset-0 opacity-30"
-          style={{
-            y: heroY,
-            background: "radial-gradient(ellipse at 50% 50%, rgba(255, 215, 0, 0.3), transparent 60%)",
-          }}
-        />
-
-        <div className="max-w-5xl mx-auto text-center space-y-4 relative z-10">
-          <motion.div className="inline-block" variants={scaleIn} transition={{ duration: 0.6, type: "spring", stiffness: 200 }}>
-            <Sparkles className="inline-block h-6 w-6 mb-2" style={{ color: "#FFD700" }} />
+      {/* Hero Section with Film Strip Effect */}
+      <section className="pt-32 pb-16 px-6 relative overflow-hidden">
+        {/* Animated film perforations - gold */}
+        <div className="absolute top-0 left-0 right-0 h-16 bg-black border-b-2 border-amber-500 flex items-center overflow-hidden">
+          <motion.div className="flex" animate={{ x: [0, -200] }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }}>
+            {[...Array(50)].map((_, i) => (
+              <div key={i} className="w-10 h-7 bg-gradient-to-b from-amber-500 to-amber-600 mx-3 rounded-sm shadow-lg shadow-amber-500/30" />
+            ))}
           </motion.div>
-
-          <motion.p
-            className="text-xs uppercase tracking-[0.3em] font-bold"
-            style={{
-              background: "linear-gradient(135deg, #FFD700, #FFA500, #FFD700)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-            variants={fadeInUp}
-            transition={{ duration: 0.5 }}
-          >
-            About Us
-          </motion.p>
-
-          <motion.h1
-            className="text-4xl md:text-6xl font-bold font-serif text-white leading-tight"
-            variants={fadeInUp}
-            transition={{ duration: 0.6 }}
-          >
-            A Legacy of{" "}
-            <motion.span
-              className="bg-linear-to-tr from-[#FFD700] via-[#FFA500] to-[#FF8C00] bg-size-[200%_200%] bg-clip-text text-transparent"
-              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-            >
-              Excellence
-            </motion.span>
-          </motion.h1>
-
-          <motion.p
-            className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed"
-            variants={fadeInUp}
-            transition={{ duration: 0.6 }}
-          >
-            Creating exceptional photography that tells your unique story with elegance, artistry, and professionalism.
-          </motion.p>
         </div>
-      </motion.section>
+
+        <div className="max-w-5xl mx-auto text-center pt-8 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            {/* Camera viewfinder decoration */}
+            <div className="inline-block relative mb-8">
+              <motion.div
+                className="absolute -top-6 -left-6 w-12 h-12 border-l-3 border-t-3 border-amber-500"
+                initial={{ opacity: 0, x: -10, y: -10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.3, type: "spring" }}
+              >
+                <div className="absolute top-0 left-0 w-3 h-3 bg-amber-500 rounded-full" />
+              </motion.div>
+              <motion.div
+                className="absolute -top-6 -right-6 w-12 h-12 border-r-3 border-t-3 border-amber-500"
+                initial={{ opacity: 0, x: 10, y: -10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.4, type: "spring" }}
+              >
+                <div className="absolute top-0 right-0 w-3 h-3 bg-amber-500 rounded-full" />
+              </motion.div>
+              <motion.div
+                className="absolute -bottom-6 -left-6 w-12 h-12 border-l-3 border-b-3 border-amber-500"
+                initial={{ opacity: 0, x: -10, y: 10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.5, type: "spring" }}
+              >
+                <div className="absolute bottom-0 left-0 w-3 h-3 bg-amber-500 rounded-full" />
+              </motion.div>
+              <motion.div
+                className="absolute -bottom-6 -right-6 w-12 h-12 border-r-3 border-b-3 border-amber-500"
+                initial={{ opacity: 0, x: 10, y: 10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.6, type: "spring" }}
+              >
+                <div className="absolute bottom-0 right-0 w-3 h-3 bg-amber-500 rounded-full" />
+              </motion.div>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-light text-white px-12 py-6">
+                About <span className="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 bg-clip-text text-transparent font-bold">Us</span>
+              </h1>
+            </div>
+
+            {/* Sparkle decorations */}
+            <motion.div
+              className="flex items-center justify-center gap-4 mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+            >
+              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}>
+                <Sparkles className="w-6 h-6 text-amber-500" />
+              </motion.div>
+              <p className="text-lg text-gray-300 max-w-2xl">
+                Creating exceptional photography that tells your unique story with elegance, artistry, and professionalism.
+              </p>
+              <motion.div animate={{ rotate: [360, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}>
+                <Sparkles className="w-6 h-6 text-amber-500" />
+              </motion.div>
+            </motion.div>
+
+            {/* Decorative line */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.5, delay: 1 }}
+              className="h-1 w-40 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto"
+            />
+          </motion.div>
+        </div>
+      </section>
 
       {/* Story & Values Section */}
       <motion.section

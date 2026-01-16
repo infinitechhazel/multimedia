@@ -2,6 +2,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Post } from "@/lib/types/types"
+import { formatMonthDayYear } from "@/lib/utils"
 import { Calendar, User } from "lucide-react"
 
 interface PostViewDialogProps {
@@ -40,7 +41,7 @@ export function PostViewDialog({ open, setOpen, post }: PostViewDialogProps) {
                 <DialogDescription className="flex items-center gap-4 text-sm text-gray-300">
                   <span className="flex items-center gap-1">
                     <Calendar className="w-4 h-4 text-[#d4a574]" />
-                    {post.date}
+                    {formatMonthDayYear(post.date)}
                   </span>
                   <span className="flex items-center gap-1">
                     <User className="w-4 h-4 text-[#d4a574]" />

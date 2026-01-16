@@ -13,6 +13,7 @@ import { BookingDeleteDialog } from "@/components/admin/bookings/admin-delete-bo
 import { CalendarBookings } from "@/components/admin/bookings/calendar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Booking } from "@/lib/types/types"
+import { formatDisplayTime, formatMonthDayYear } from "@/lib/utils"
 
 const AdminBookings = () => {
   const [data, setData] = useState<Booking[]>([])
@@ -234,8 +235,22 @@ const AdminBookings = () => {
     { accessorKey: "email", header: "Email", enableSorting: true },
     { accessorKey: "phone", header: "Phone" },
     { accessorKey: "serviceType", header: "Service", enableSorting: true },
-    { accessorKey: "date", header: "Date", enableSorting: true },
-    { accessorKey: "time", header: "Time" },
+    {
+      accessorKey: "date",
+      header: "Date",
+      cell: ({ row }) => {
+        const value = row.getValue("date") as string
+        return value ? formatMonthDayYear(value) : ""
+      },
+    },
+    {
+      accessorKey: "time",
+      header: "Time",
+      cell: ({ row }) => {
+        const value = row.getValue("time") as string
+        return value ? formatDisplayTime(value) : ""
+      },
+    },
     { accessorKey: "guests", header: "Guest" },
     { accessorKey: "message", header: "Message" },
     {

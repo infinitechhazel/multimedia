@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, MessageSquare, Calendar, FileText, Users, LogOut, Menu, X, ChevronLeft } from "lucide-react"
+import { LayoutDashboard, MessageSquare, Calendar, FileText, LogOut, Menu, X, ChevronLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const sidebarItems = [
@@ -21,10 +21,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const handleLogout = () => {
-    // clear auth cookie
-    document.cookie = "admin_token=; path=/; max-age=0"
-    router.push("/admin/login")
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/admin/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      if (!res.ok) {
+        console.error("Logout failed")
+        return
+      }
+
+      router.push("/admin/login")
+    } catch (err) {
+      console.error("Logout error:", err)
+    }
   }
 
   if (pathname === "/admin/login") {
@@ -58,7 +72,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </Link>
             )}
 
-            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="hidden lg:flex p-2 hover:bg-gold/90 bg-yellow-500 rounded-lg transition-colors">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="hidden lg:flex p-2 hover:bg-gold/90 bg-yellow-500 rounded-lg transition-colors"
+            >
               <ChevronLeft className={cn("w-5 h-5 transition-transform", !sidebarOpen && "rotate-180")} />
             </button>
           </div>

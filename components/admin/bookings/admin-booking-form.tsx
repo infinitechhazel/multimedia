@@ -80,32 +80,42 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-2xl text-black max-h-[90vh] overflow-y-auto scrollbar-hide">
+      <DialogContent className="w-full max-w-2xl text-black max-h-[90vh] overflow-y-auto scrollbar-hide px-4 sm:px-6">
         <DialogHeader>
           <DialogTitle className="text-accent">{initialData ? "Edit Booking" : "Add Booking"}</DialogTitle>
           <DialogDescription>{initialData ? "Update booking information." : "Create a new booking entry."}</DialogDescription>
         </DialogHeader>
+
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          {/* Responsive grid: 1 column on mobile, 2 on sm+ */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <Label className="text-black">First Name</Label>
-              <Input className="text-black" value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} />
+              <Input
+                className="text-black w-full"
+                value={formData.firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+              />
             </div>
             <div>
               <Label className="text-black">Last Name</Label>
-              <Input className="text-black" value={formData.lastName ?? ""} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />
+              <Input
+                className="text-black w-full"
+                value={formData.lastName ?? ""}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+              />
             </div>
             <div>
               <Label className="text-black">Email</Label>
-              <Input className="text-black" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+              <Input className="text-black w-full" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
             </div>
             <div>
               <Label className="text-black">Phone</Label>
               <Input
-                className="text-black"
+                className="text-black w-full"
                 value={formData.phone ?? ""}
                 onChange={(e) => {
-                  const onlyNumbers = e.target.value.replace(/\D/g, "") // remove non-digits
+                  const onlyNumbers = e.target.value.replace(/\D/g, "")
                   setFormData({ ...formData, phone: onlyNumbers })
                 }}
               />
@@ -113,7 +123,7 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
             <div>
               <Label className="text-black">Service</Label>
               <select
-                className="w-full h-10 px-3  border border-border rounded-md bg-background"
+                className="w-full h-10 px-3 border border-border rounded-md bg-background"
                 value={formData.serviceType}
                 onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
               >
@@ -127,7 +137,7 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
             <div>
               <Label className="text-black">Date</Label>
               <Input
-                className="text-black"
+                className="text-black w-full"
                 type="date"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
@@ -148,11 +158,10 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
                 className="w-full h-10 px-3 text-black border border-border rounded-md bg-background"
                 value={formData.time}
                 onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                disabled={!formData.date} // only enable after picking a date
+                disabled={!formData.date}
               >
                 <option value="">Select a time</option>
                 {allTimes.map((time) => {
-                  // disable if booked for the chosen date
                   const isBooked = bookedDates.some((b) => b.date === formData.date && b.time.includes(time))
                   return (
                     <option key={time} value={time} disabled={isBooked} className={`${isBooked ? "bg-slate-500 text-white" : ""}`}>
@@ -164,7 +173,7 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
             </div>
             <div>
               <Label className="text-black">Guests</Label>
-              <Input className="text-black" value={formData.guests} onChange={(e) => setFormData({ ...formData, guests: e.target.value })} />
+              <Input className="text-black w-full" value={formData.guests} onChange={(e) => setFormData({ ...formData, guests: e.target.value })} />
             </div>
             <div>
               <Label className="text-black">Status</Label>
@@ -180,16 +189,23 @@ export function BookingFormDialog({ open, setOpen, initialData, onSubmit }: Book
               </select>
             </div>
           </div>
+
+          {/* Message field full width */}
           <div>
-            <Label className="text-black">MessFage</Label>
-            <Textarea className="text-black" value={formData.message ?? ""} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
+            <Label className="text-black">Message</Label>
+            <Textarea
+              className="w-full resize-y overflow-hidden break-all"
+              value={formData.message ?? ""}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            />
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="outline" className="text-black" onClick={() => setOpen(false)}>
+
+        <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+          <Button variant="outline" className="text-black w-full sm:w-auto" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button onClick={handleSubmit} className="bg-gold hover:bg-gold/90 text-primary-foreground">
+          <Button onClick={handleSubmit} className="bg-gold hover:bg-gold/90 text-primary-foreground w-full sm:w-auto">
             {loading ? "Saving..." : initialData ? "Save" : "Add"}
           </Button>
         </DialogFooter>

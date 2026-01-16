@@ -10,6 +10,7 @@ import { PostViewDialog } from "@/components/admin/posts/admin-view-post"
 import { PostFormDialog } from "@/components/admin/posts/admin-add-edit-post"
 import { PostDeleteDialog } from "@/components/admin/posts/admin-delete-post"
 import { Post } from "@/lib/types/types"
+import { formatMonthDayYear } from "@/lib/utils"
 
 export default function AdminPostsPage() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -173,11 +174,13 @@ export default function AdminPostsPage() {
         </span>
       ),
     },
-
     {
       accessorKey: "date",
       header: "Date",
-      cell: ({ row }: any) => new Date(row.getValue("date")).toLocaleDateString(),
+      cell: ({ row }) => {
+        const value = row.getValue("date") as string
+        return value ? formatMonthDayYear(value) : ""
+      },
     },
     { accessorKey: "author", header: "Author" },
     { accessorKey: "label", header: "Label" },

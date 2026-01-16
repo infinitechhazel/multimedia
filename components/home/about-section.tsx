@@ -226,7 +226,7 @@ export default function AboutSection() {
         </div>
 
         {/* Main content grid */}
-        <div className="grid lg:grid-cols-2 gap-20 items-center mb-32">
+        <div className="grid lg:grid-cols-2 gap-20 items-center justify-center mb-32">
           {/* Image with parallax and zoom effects */}
           <motion.div
             ref={imageRef}
@@ -367,13 +367,13 @@ export default function AboutSection() {
           </motion.div>
 
           {/* Text content */}
-          <div className="space-y-8">
+          <div className="space-y-8 mx-6">
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-gray-300 text-xl leading-relaxed"
+              className="text-gray-300 text-sm lg:text-xl leading-relaxed"
             >
               Luminous Studio is dedicated to capturing life&apos;s precious moments with artistry and precision. Our team of experienced photographers
               brings a unique blend of technical expertise and creative vision to every project.
@@ -384,7 +384,7 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-gray-400 text-lg leading-relaxed"
+              className="text-gray-400 text-sm lg:text-xl leading-relaxed"
             >
               From intimate portraits to grand celebrations, we approach each session with the same dedication to excellence and attention to detail
               that has made us a trusted name in photography.

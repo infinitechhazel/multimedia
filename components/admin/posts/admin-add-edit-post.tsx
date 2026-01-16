@@ -184,12 +184,12 @@ export function PostFormDialog({ open, setOpen, initialData, onSubmit, loading =
 
           <div>
             <Label className="text-black">Excerpt</Label>
-            <Textarea className="text-black" value={formData.excerpt} onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })} />
+            <Textarea className="w-full resize-y overflow-hidden break-all" value={formData.excerpt} onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })} />
           </div>
 
           <div>
             <Label className="text-black">Content</Label>
-            <Textarea className="text-black" value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} />
+            <Textarea className="w-full resize-y overflow-hidden break-all" value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} />
           </div>
         </div>
 
